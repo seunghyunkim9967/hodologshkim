@@ -1,4 +1,4 @@
-package com.hodolog.hodolog;
+package com.hodolog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
