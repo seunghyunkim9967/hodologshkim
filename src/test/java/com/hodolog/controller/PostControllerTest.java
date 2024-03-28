@@ -49,7 +49,7 @@ public class PostControllerTest {
 //                        .param("content", "글 내용입니다 하하")
 //                )
 //                .andExpect(status().isOk())
-//                .andExpect(content().string("Hello World"))
+//                .andExpect(content().string("Hello World")) 
 //                .andDo(print());
 
         mockMvc.perform(post("/posts") // application/json
