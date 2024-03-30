@@ -1,33 +1,18 @@
 package com.hodolog.api.request;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
 
+@Setter
+@Getter
+@ToString
 public class PostCreate {
+    @NotBlank
     public String title;
+    @NotBlank
     public String content;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "PostCreate{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
 }
