@@ -12,8 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 public class PostControllerTest {
@@ -57,7 +56,7 @@ public class PostControllerTest {
                         .content("{\"title\": \"제목입니다.\", \"content\": \"내용입니다.\"}")
                 )
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello World"))
+                .andExpect(content().string("{}"))
                 .andDo(print());
     }
 
@@ -67,10 +66,12 @@ public class PostControllerTest {
 
         mockMvc.perform(post("/posts") // application/json
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"title\": \"\", \"content\": \"내용입니다.\"}")
+                // {"title" : ""} OK
+                // {"title" : null} @NotBlank 어노테이션이 같이 체크 해줌
+                        .content("{\"title\": null, \"content\": \"내용입니다.\"}")
                 )
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello World"))
+                .andExpect(jsonPath("$.title").value("타이틀을 입력해주십쇼..."))
                 .andDo(print());
     }
 
