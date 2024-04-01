@@ -45,7 +45,12 @@ public class PostController {
     @PostMapping("/posts")
     public Map<String, String> post(@RequestBody @Valid PostCreate params, BindingResult result) throws Exception {
         // 데이터를 검증하는 이유
-
+        // 1. 매번 메서드마다 값을 검증 해야한다.(반복)
+        // 검증 부분에서 버그가 발생할 여지가 높음.
+        // 2. 응답값에 HashMap -> 응답 클래스를 만들어주는게 좋다.
+        // 3. 여러개의 에러처리 힘듬
+        // 4. 세 번이상의 반복 작업은 피해야한다.
+            //자동화 고려
         // 1. client 개발자가 깜빡할 수 있다. 실수로 값을 안보낼수 있다
         // 2. client bug로 값이 누락될 수 있다.
         // 3. 외부에 해커가 값을 임의로 조작해서 보낼 수 있다.
