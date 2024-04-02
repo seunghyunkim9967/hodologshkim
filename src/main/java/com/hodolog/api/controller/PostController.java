@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Map.*;
+
 @Slf4j
 @RestController
 public class PostController {
@@ -43,7 +45,7 @@ public class PostController {
     }*/
 
     @PostMapping("/posts")
-    public Map<String, String> post(@RequestBody @Valid PostCreate params, BindingResult result) throws Exception {
+    public Map<String, String> post(@RequestBody @Valid PostCreate params/*, BindingResult result*/) {
         // 데이터를 검증하는 이유
         // 1. 매번 메서드마다 값을 검증 해야한다.(반복)
         // 검증 부분에서 버그가 발생할 여지가 높음.
@@ -56,19 +58,19 @@ public class PostController {
         // 3. 외부에 해커가 값을 임의로 조작해서 보낼 수 있다.
         // 4. DB에 값을 저장할 때 의도치 않은 오류가 발생할 수 있다.
         // 5. 서버 개발자의 편안함을 위해서
-        if(result.hasErrors()){
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            FieldError firstFieldError = fieldErrors.get(0);
-            String fieldName = firstFieldError.getField();
-            String errorMassage = firstFieldError.getDefaultMessage(); // ..에러메시지
-
-            Map<String, String> error = new HashMap<>();
-            error.put(fieldName, errorMassage);
-            return error;
-
-        }
-        log.info("params={}",params.toString());
-
+//        if(result.hasErrors()){
+//            List<FieldError> fieldErrors = result.getFieldErrors();
+//            FieldError firstFieldError = fieldErrors.get(0);
+//            String fieldName = firstFieldError.getField();
+//            String errorMassage = firstFieldError.getDefaultMessage(); // ..에러메시지
+//
+//            Map<String, String> error = new HashMap<>();
+//            error.put(fieldName, errorMassage);
+//            return error;
+//
+//        }
+//        log.info("params={}",params.toString());
+        return Map.of();
 //        String title = params.getTitle();
 //        if(title == null || title.equals("")){
 //            //error
@@ -86,7 +88,7 @@ public class PostController {
 //            //error
 //        }
 
-        return Map.of();
+
     }
 
 }

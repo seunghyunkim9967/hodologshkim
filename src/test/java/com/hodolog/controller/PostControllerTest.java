@@ -70,8 +70,10 @@ public class PostControllerTest {
                 // {"title" : null} @NotBlank 어노테이션이 같이 체크 해줌
                         .content("{\"title\": null, \"content\": \"내용입니다.\"}")
                 )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title").value("타이틀을 입력해주십쇼..."))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.massage").value("잘못된 요청입니다."))
+                .andExpect(jsonPath("$.validation.title").value("타이틀을 입력해주십쇼..."))
                 .andDo(print());
     }
 
