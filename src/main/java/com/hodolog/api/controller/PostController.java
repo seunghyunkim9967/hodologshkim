@@ -1,6 +1,8 @@
 package com.hodolog.api.controller;
 
 import com.hodolog.api.request.PostCreate;
+import com.hodolog.api.service.PostService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,6 +18,7 @@ import static java.util.Map.*;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class PostController {
 
     // SSR -> jsp, thymeleaf, mustache, freemarker
@@ -44,8 +47,9 @@ public class PostController {
         return "Hello World";
     }*/
 
+    private final PostService postService
     @PostMapping("/posts")
-    public Map<String, String> post(@RequestBody @Valid PostCreate params/*, BindingResult result*/) {
+    public Map<String, String> post(@RequestBody @Valid PostCreate request/*, BindingResult result*/) {
         // 데이터를 검증하는 이유
         // 1. 매번 메서드마다 값을 검증 해야한다.(반복)
         // 검증 부분에서 버그가 발생할 여지가 높음.
@@ -70,6 +74,9 @@ public class PostController {
 //
 //        }
 //        log.info("params={}",params.toString());
+        // repository.save(params)
+        //postService.write(request) -> Controller -> Service -> Repository -> 최종적으로 넘어온 Json 데이터 값을 Post Entity 형태로 변환하여 저장;
+        postService.write(request);
         return Map.of();
 //        String title = params.getTitle();
 //        if(title == null || title.equals("")){
