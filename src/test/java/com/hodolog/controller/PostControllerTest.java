@@ -2,21 +2,27 @@ package com.hodolog.controller;
 
 
 import com.hodolog.api.Repository.PostRepository;
+import com.hodolog.api.domain.Post;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
+@AutoConfigureMockMvc
+@SpringBootTest
 public class PostControllerTest {
 
     @Autowired
@@ -24,6 +30,12 @@ public class PostControllerTest {
 
     @Autowired
     private PostRepository postRepository;
+    
+    //각각의 메서드 실행 전 repository 초기화
+    @BeforeEach
+    void clean() {
+        postRepository.deleteAll();
+    }
     @Test
     @DisplayName("/posts 요청시 Hello World를 출력한다.")
     void test() throws Exception {
@@ -63,6 +75,7 @@ public class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("{}"))
                 .andDo(print());
+        // 테스트 성공 시 db -> post 1개 등록
     }
 
     @Test
@@ -85,6 +98,8 @@ public class PostControllerTest {
     @Test
     @DisplayName("/posts 요청시 DB에 값이 저장된다.")
     void test3() throws Exception {
+    //before
+
     //when
         mockMvc.perform(post("/posts")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -92,10 +107,15 @@ public class PostControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andDo(print());
+        // db -> post 1개 등록 -> 총 2개 test1, test3 pass
+        //then
+        //고로 다른 테스트들이 영향 끼치지 않게 만들어 줘야함.
+        assertEquals(1L, postRepository.count());
+
+        Post post = postRepository.findAll().get(0);
+
+        assertEquals("제목입니다.", post.getTitle());
+        assertEquals("내용입니다.", post.getContent());
     }
-
-    //then
-
-    assertEquals(1L, postRepository.count());
 
 }

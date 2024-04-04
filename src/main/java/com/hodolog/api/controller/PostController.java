@@ -47,7 +47,7 @@ public class PostController {
         return "Hello World";
     }*/
 
-    private final PostService postService
+    private final PostService postService;
     @PostMapping("/posts")
     public Map<String, String> post(@RequestBody @Valid PostCreate request/*, BindingResult result*/) {
         // 데이터를 검증하는 이유
