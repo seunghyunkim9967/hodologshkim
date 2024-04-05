@@ -1,8 +1,10 @@
 package com.hodolog.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.api.Repository.PostRepository;
 import com.hodolog.api.domain.Post;
+import com.hodolog.api.request.PostCreate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,9 +39,9 @@ public class PostControllerTest {
     void clean() {
         postRepository.deleteAll();
     }
-    @Test
-    @DisplayName("/posts 요청시 Hello World를 출력한다.")
-    void test() throws Exception {
+//    @Test
+//    @DisplayName("/posts 요청시 Hello World를 출력한다.")
+//    void test() throws Exception {
         //글 제목
         //글 내용
         // 사용자
@@ -67,10 +70,24 @@ public class PostControllerTest {
 //                .andExpect(status().isOk())
 //                .andExpect(content().string("Hello World"))
 //                .andDo(print());
+        @Test
+        @DisplayName("/posts 요청시 Hello World를 출력한다.")
+        void test() throws Exception {
+        //given
+        PostCreate request =  PostCreate.builder()
+                .title("제목입니다.")
+                .content("내용입니다.")
+                .build();
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(request);
+
+        System.out.println(json);
 
         mockMvc.perform(post("/posts") // application/json
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"title\": \"제목입니다.\", \"content\": \"내용입니다.\"}")
+                        .contentType(APPLICATION_JSON)
+                        .content(json)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().string("{}"))
@@ -83,7 +100,7 @@ public class PostControllerTest {
     void test2() throws Exception {
 
         mockMvc.perform(post("/posts") // application/json
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(APPLICATION_JSON)
                 // {"title" : ""} OK
                 // {"title" : null} @NotBlank 어노테이션이 같이 체크 해줌
                         .content("{\"title\": null, \"content\": \"내용입니다.\"}")
@@ -102,7 +119,7 @@ public class PostControllerTest {
 
     //when
         mockMvc.perform(post("/posts")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(APPLICATION_JSON)
                         .content("{\"title\": \"제목입니다.\", \"content\": \"내용입니다.\"}")
                 )
                 .andExpect(status().isOk())
