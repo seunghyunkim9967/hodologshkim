@@ -48,6 +48,7 @@ public class PostController {
     }*/
 
     private final PostService postService;
+    // 유연한 대응 필요
     @PostMapping("/posts")
     public Map<String, String> post(@RequestBody @Valid PostCreate request/*, BindingResult result*/) {
         // 데이터를 검증하는 이유

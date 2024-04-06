@@ -1,5 +1,6 @@
 package com.hodolog.api.response;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -16,13 +17,21 @@ import java.util.Map;
 * */
 
 @Getter
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class ErrorResponse {
 
     private final String code;
-    private final String massage;
+    private  String massage;
 
     private final Map<String, String> validation = new HashMap<>();
+
+    @Builder
+    public ErrorResponse(String code, String massage) {
+        this.code = code;
+        this.massage = massage;
+    }
+
+
 
     public void addValidation(String filedName, String errorMassage) {
 //        ValidationTuple tuple = new ValidationTuple(filedName, errorMassage);

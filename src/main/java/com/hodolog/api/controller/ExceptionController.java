@@ -22,7 +22,13 @@ public class ExceptionController {
         //
 //        MethodArgumentNotValidException
 //        log.info("exceptionHandler error : " + e);
-            ErrorResponse response =  new ErrorResponse("400","잘못된 요청입니다.");
+            ErrorResponse response =  ErrorResponse.builder()
+                    .code("400")
+                    .massage("잘못된 요청입니다.")
+                    .build();
+
+
+                    ;
             for (FieldError filedError : e.getFieldErrors()) {
                 response.addValidation(filedError.getField(), filedError.getDefaultMessage());
             }
