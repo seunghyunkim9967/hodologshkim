@@ -15,4 +15,8 @@ public class PostResponse {
     private final String title;
     private final String content;
 
+    public String getTitle() {
+        return this.title.substring(0, Math.min(title.length(), 10));
+    }
+
 }
