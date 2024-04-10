@@ -105,20 +105,21 @@ public class PostController {
 
     }
 
+    // 조회 API
+    // 여러개의 글 API 조회
+    // /posts
+    //
     @GetMapping("/posts/{postId}")
-    public PostResponse get(@PathVariable(name = "postId") Long id) {
+    public PostResponse get(@PathVariable Long postId) {
         // 응답 클래스를 분리하세요 (서비스 정책에 맞게)
-        PostResponse postResponse = postService.get(id);
+//        PostResponse postResponse = postService.get(id);
 
-
-
-        return postResponse;
+        return postService.get(postId);
     }
 
-//    @GetMapping("/posts/{postId}/rss")
-//    public Post getRss(@PathVariable(name = "postId") Long id) {
-//        Post post = postService.get(id);
-//        return post;
-//    }
+    @GetMapping("/posts")
+    public List<Post> getList(@PathVariable(name = "postId") Long id) {
+        return postService.getList();
+    }
 
 }
