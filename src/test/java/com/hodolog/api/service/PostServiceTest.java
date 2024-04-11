@@ -89,10 +89,10 @@ class PostServiceTest {
         postRepository.save(requestPost2);
 
         // when
-        List<Post> posts = postService.getList();
+        List<PostResponse> posts = postService.getList();
         // then
 //        Assertions.assertNotNull(response);
-        assertEquals(2L, posts);
+        assertEquals(2L, posts.size());
 
     }
 }
