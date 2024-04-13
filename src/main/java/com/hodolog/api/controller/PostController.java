@@ -118,7 +118,7 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostResponse> getList(@PathVariable(name = "postId") Long id) {
+    public List<PostResponse> getList()  {
         return postService.getList();
     }
 
