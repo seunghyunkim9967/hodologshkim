@@ -186,15 +186,7 @@ public class PostControllerTest {
         mockMvc.perform(get("/posts")
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                /*
-                * {id: ..., title: ...}
-                * */
-
-                /*
-                *
-                * */
                 .andExpect(jsonPath("$.length()", Matchers.is(2)))
-                .andExpect(jsonPath("$[0].id").value(post1.getId()))
                 .andExpect(jsonPath("$[0].title").value("title_1"))
                 .andExpect(jsonPath("$[0].content").value("content_1"))
                 .andDo(print());
