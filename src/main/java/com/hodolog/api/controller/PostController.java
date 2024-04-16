@@ -117,9 +117,11 @@ public class PostController {
         return postService.get(postId);
     }
 
+
+
     @GetMapping("/posts")
     public List<PostResponse> getList()  {
-        return postService.getList();
+        return postService.getList(1);
     }
 
 }
