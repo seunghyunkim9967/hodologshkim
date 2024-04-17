@@ -9,6 +9,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,9 +51,8 @@ public class PostService {
     // 글이 -> 1억개 -> DB글 모두 조회하는경우 -> DB 뻗을 확률 Up
     // DB -> 애플리케이션 서버로 전달하는 시간, 트래픽비용 등이 많이 발생할 수 있다.
 
-    public List<PostResponse> getList(int page) {
+    public List<PostResponse> getList(Pageable pageable) {
         // web -> page 1 -> 0
-        Pageable pageable = PageRequest.of(page, 5);
         return postRepository.findAll(pageable).stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
