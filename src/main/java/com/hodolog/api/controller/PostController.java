@@ -122,7 +122,7 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public List<PostResponse> getList(Pageable pageable)  {
+    public List<PostResponse> getList(@PageableDefault Pageable pageable)  {
         return postService.getList(pageable);
     }
 
