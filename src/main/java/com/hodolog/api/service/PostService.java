@@ -53,7 +53,7 @@ public class PostService {
 
     public List<PostResponse> getList(Pageable pageable) {
         // web -> page 1 -> 0
-        return postRepository.findAll(pageable).stream()
+        return postRepository.getList(1).stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
 
