@@ -3,6 +3,7 @@ package com.hodolog.api.service;
 import com.hodolog.api.Repository.PostRepository;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.request.PostCreate;
+import com.hodolog.api.request.PostSearch;
 import com.hodolog.api.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -51,7 +52,7 @@ public class PostService {
     // 글이 -> 1억개 -> DB글 모두 조회하는경우 -> DB 뻗을 확률 Up
     // DB -> 애플리케이션 서버로 전달하는 시간, 트래픽비용 등이 많이 발생할 수 있다.
 
-    public List<PostResponse> getList(Pageable pageable) {
+    public List<PostResponse> getList(PostSearch postSearch) {
         // web -> page 1 -> 0
         return postRepository.getList(1).stream()
                 .map(PostResponse::new)

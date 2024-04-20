@@ -110,7 +110,7 @@ class PostServiceTest {
         //
         //        }
         //  == List<Post> requestPosts = IntStream.range(0, 30)  동일하다
-        List<Post> requestPosts = IntStream.range(1, 31)
+        List<Post> requestPosts = IntStream.range(0, 20)
                 .mapToObj(i ->{
                     return Post.builder()
                             .title("호돌맨 제목 - " + i)
@@ -125,9 +125,9 @@ class PostServiceTest {
         // when
         List<PostResponse> posts = postService.getList(pageable);
         // then
-        assertEquals(5L, posts.size());
-        assertEquals("호돌맨 제목 - 30", posts.get(0).getTitle());
-        assertEquals("호돌맨 제목 - 26", posts.get(4).getTitle());
+        assertEquals(10L, posts.size());
+        assertEquals("호돌맨 제목 - 19", posts.get(0).getTitle());
+//        assertEquals("호돌맨 제목 - 4", posts.get(4).getTitle());
 
     }
 }

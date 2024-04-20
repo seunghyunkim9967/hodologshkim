@@ -2,6 +2,7 @@ package com.hodolog.api.Repository;
 
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.domain.QPost;
+import com.hodolog.api.request.PostSearch;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -14,10 +15,11 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 
 
     @Override
-    public List<Post> getList(int page) {
+    public List<Post> getList(PostSearch postSearch) {
         return jpaQueryFactory.selectFrom(QPost.post)
                 .limit(10)
-                .offset((long) (page - 1) * 10)
+                .offset((long) (postSearch.getPage() - 1 ) * postSearch.getSize())
+                .orderBy(QPost.post.id.desc())
                 .fetch();
     }
 }
