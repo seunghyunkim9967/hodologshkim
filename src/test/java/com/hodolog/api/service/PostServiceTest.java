@@ -3,6 +3,7 @@ package com.hodolog.api.service;
 import com.hodolog.api.Repository.PostRepository;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.request.PostCreate;
+import com.hodolog.api.request.PostSearch;
 import com.hodolog.api.response.PostResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -120,10 +121,15 @@ class PostServiceTest {
                         .collect(Collectors.toList());
         postRepository.saveAll(requestPosts);
 
-        Pageable pageable = PageRequest.of(0,5, Sort.by(DESC, "id"));
+//        Pageable pageable = PageRequest.of(0,5, Sort.by(DESC, "id"));
+
+        PostSearch postSearch = PostSearch.builder()
+                .page(1)
+                .size(10)
+                .build();
 
         // when
-        List<PostResponse> posts = postService.getList(pageable);
+        List<PostResponse> posts = postService.getList(postSearch);
         // then
         assertEquals(10L, posts.size());
         assertEquals("호돌맨 제목 - 19", posts.get(0).getTitle());

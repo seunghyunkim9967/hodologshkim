@@ -123,7 +123,7 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public List<PostResponse> getList(@RequestParam PostSearch postSearch)  {
+    public List<PostResponse> getList(@ModelAttribute PostSearch postSearch)  {
         return postService.getList(postSearch);
     }
 

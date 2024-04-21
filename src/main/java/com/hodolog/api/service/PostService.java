@@ -54,7 +54,7 @@ public class PostService {
 
     public List<PostResponse> getList(PostSearch postSearch) {
         // web -> page 1 -> 0
-        return postRepository.getList(1).stream()
+        return postRepository.getList(postSearch).stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
 
