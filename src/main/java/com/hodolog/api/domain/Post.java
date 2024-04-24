@@ -1,12 +1,12 @@
 package com.hodolog.api.domain;
 
+import com.hodolog.api.request.PostEdit;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Post {
 
@@ -25,8 +25,25 @@ public class Post {
         this.content = content;
     }
 
-    public String getTitle() {
+    public String getTitle(String title) {
         // 서비스의 정책을 넣지마세요!!! 절대!!!
         return this.title;
+    }
+
+//    public void change(String content, String title) {
+//        this.title = title;
+//        this.content = content;
+//    }
+
+    public PostEditor.PostEditorBuilder toEditor() {
+        return PostEditor.builder()
+                .title(title)
+                .content(content);
+
+    }
+
+    public void edit(PostEditor postEditor) {
+        title = postEditor.getTitle();
+        content = postEditor.getContent();
     }
 }
