@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.api.Repository.PostRepository;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.request.PostCreate;
+import com.hodolog.api.request.PostEdit;
 import com.hodolog.api.response.PostResponse;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -28,8 +29,7 @@ import java.util.stream.IntStream;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -240,6 +240,29 @@ public class PostControllerTest {
                 .andExpect(jsonPath("$.length()", is(10)))
                 .andExpect(jsonPath("$[0].title").value("호돌맨 제목 - 19"))
                 .andExpect(jsonPath("$[0].content").value("반포자이 - 19"))
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("글 제목 수정")
+    void test7() throws Exception {
+        Post post = Post.builder()
+                .title("호돌맨")
+                .content("오들오들맨")
+                .build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("호돌건")
+                .content("오돌오돌건초가")
+                .build();
+        //expected
+        mockMvc.perform(patch("/posts/{postId}", post.getId()) // PATCH / posts/ (postId)
+                        .contentType(APPLICATION_JSON)                      )
+//                        .content(objectMapper.writeValueAsString(postEdit))
+//                )
+                .andExpect(status().isOk())
                 .andDo(print());
 
     }
