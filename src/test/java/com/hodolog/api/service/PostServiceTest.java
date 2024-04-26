@@ -174,7 +174,7 @@ class PostServiceTest {
                 .title(null)
                 .content("오돌오돌건초가")
                 .build();
-
+        System.out.println(postEdit);
         // when
         postService.edit(post.getId(), postEdit);
         // then
