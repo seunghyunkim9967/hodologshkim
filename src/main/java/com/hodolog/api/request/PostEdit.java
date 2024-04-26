@@ -1,6 +1,7 @@
 package com.hodolog.api.request;
 
 
+import com.hodolog.api.domain.PostEditor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,5 @@ public class PostEdit {
         this.content = content;
 
     }
-
 
 }
