@@ -81,7 +81,7 @@ public class PostService {
 
     public void edit(Long id, PostEdit postEdit) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                .orElseThrow();
 
 //        post.setTitle(postEdit.getTitle());
 //        post.setContent(postEdit.getContent());
@@ -92,7 +92,7 @@ public class PostService {
                 .title(postEdit.getTitle())
                 .content(postEdit.getContent())
                 .build();
-
+        System.out.println("postEdit : " + postEditor.getContent());
         post.edit(postEditor);
     }
 

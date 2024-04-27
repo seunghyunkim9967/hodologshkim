@@ -180,7 +180,7 @@ class PostServiceTest {
         // then
         Post changedPost = postRepository.findById(post.getId())
                 .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id = " + post.getId()));
-        System.out.println(changedPost.getContent());
+        System.out.println("왜 와이" + changedPost.getContent());
         Assertions.assertEquals("오돌오돌건초가", changedPost.getContent());
     }
 

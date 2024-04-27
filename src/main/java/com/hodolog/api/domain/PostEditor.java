@@ -26,12 +26,16 @@ public class PostEditor {
         }
 
         public PostEditor.PostEditorBuilder title(final String title) {
-            this.title = title;
+            if (title != null) {
+                this.title = title;
+            }
             return this;
         }
 
         public PostEditor.PostEditorBuilder content(final String content) {
-            this.content = content;
+            if (content != null) {
+                this.content = content;
+            }
             return this;
         }
 
