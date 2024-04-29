@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.hodolog.api.domain.QPost.post;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -220,6 +221,23 @@ class PostServiceTest {
         postService.delete(post.getId());
         //then
         Assertions.assertEquals(0, postRepository.count());
+
+    }
+
+    @Test
+    @DisplayName("글 1개 조회")
+    void test7() {
+        // given
+        Post requestPost = Post.builder()
+                .title("호돌맨")
+                .content("반포자이")
+                .build();
+
+        postRepository.save(requestPost);
+
+        assertThrows(IllegalAccessError.class, () -> {
+            postService.get(requestPost.getId() + 1L);
+        }, "예외처리가 잘못 되었어요.");
 
     }
 
