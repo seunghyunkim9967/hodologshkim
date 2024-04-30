@@ -101,7 +101,7 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글."));
 
-        postRepository.delete(post);
+        postRepository.delete(post);s
 
     }
 
