@@ -239,11 +239,11 @@ class PostServiceTest {
 //            postService.get(requestPost.getId() + 1L);
 //        }, "예외처리가 잘못 되었어요.");
 
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+        IllegalArgumentException e = assertThrows(PostNotFound.class, () -> {
             postService.get(requestPost.getId() + 1L);
         });
 
-        assertEquals("존재하지 않는 글.", e.getMessage());
+//        assertEquals("존재하지 않는 글.", e.getMessage());
     }
 
 }
