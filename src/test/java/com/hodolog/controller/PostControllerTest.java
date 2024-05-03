@@ -42,7 +42,9 @@ public class PostControllerTest {
 
     @Autowired
     private PostRepository postRepository;
-    
+    @Autowired
+    private ObjectMapper objectMapper;
+
     //각각의 메서드 실행 전 repository 초기화
     @BeforeEach
     void clean() {
@@ -308,6 +310,28 @@ public class PostControllerTest {
                 .andExpect(status().isNotFound())
                 .andDo(print());
 
+    }
+
+    @Test
+    @DisplayName("게시글 작성시 제목에 'null title'은 포함될 수 없다.")
+    void test11() throws Exception {
+        //before
+
+        PostCreate request = PostCreate.builder()
+                .title("null title입니다")
+                .content("내용입니다.")
+                .build();
+
+        String json = objectMapper.writeValueAsString(request);
+
+
+        //when
+        mockMvc.perform(post("/posts")
+                        .contentType(APPLICATION_JSON)
+                        .content(json)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
 }

@@ -16,6 +16,10 @@ public class PostCreate {
     @NotBlank(message = "내용을 입력해주십쇼...")
     public String content;
 
+    public PostCreate() {
+
+    }
+
     @Builder
     public PostCreate(String content, String title) {
         this.title = title;

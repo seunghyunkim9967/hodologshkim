@@ -1,6 +1,7 @@
 package com.hodolog.api.controller;
 
 import com.hodolog.api.domain.Post;
+import com.hodolog.api.exception.InvalidRequest;
 import com.hodolog.api.request.PostCreate;
 import com.hodolog.api.request.PostEdit;
 import com.hodolog.api.request.PostSearch;
@@ -83,6 +84,9 @@ public class PostController {
 //        log.info("params={}",params.toString());
         // repository.save(params)
         //postService.write(request) -> Controller -> Service -> Repository -> 최종적으로 넘어온 Json 데이터 값을 Post Entity 형태로 변환하여 저장;
+        if(request.getTitle().contains("null title")) {
+            throw new InvalidRequest();
+        }
         postService.write(request);
         return Map.of();
 //        String title = params.getTitle();

@@ -53,6 +53,9 @@ public class ExceptionController {
                 .massage(e.getMessage())
                 .build();
 
+            response.addValidation("validationTest", "의도한 404 Valid Error");
+
         return response;
     }
+
 }
