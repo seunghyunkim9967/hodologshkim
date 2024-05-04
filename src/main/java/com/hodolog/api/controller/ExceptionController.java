@@ -1,5 +1,6 @@
 package com.hodolog.api.controller;
 
+import com.hodolog.api.exception.HodologException;
 import com.hodolog.api.exception.PostNotFound;
 import com.hodolog.api.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -45,9 +46,9 @@ public class ExceptionController {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)//NOT_FOUND : 404
-    @ExceptionHandler(PostNotFound.class)
+    @ExceptionHandler(HodologException.class)
     @ResponseBody
-    public ErrorResponse postNotFound(PostNotFound e) {
+    public ErrorResponse HodologException(HodologException e) {
         ErrorResponse response =  ErrorResponse.builder()
                 .code("404")
                 .massage(e.getMessage())
