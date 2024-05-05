@@ -1,5 +1,6 @@
 package com.hodolog.api.request;
 
+import com.hodolog.api.exception.InvalidRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,4 +32,10 @@ public class PostCreate {
     // - 필요한 값만 받을 수 있다. // -> (오버로딩 가능한 조건 찾아보세요)
     // - 객체의 불변성
     // - ( 순서가 꼬여도 ㄱㅊ. )
+
+    public void validate() {
+        if (title.contains("null title")) {
+            throw new InvalidRequest("title", "타이틀 = null title입니다.");
+        }
+    }
 }
