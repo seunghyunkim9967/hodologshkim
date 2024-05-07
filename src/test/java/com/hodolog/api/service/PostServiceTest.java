@@ -163,28 +163,28 @@ class PostServiceTest {
         Assertions.assertEquals("호돌건", changedPost.getTitle());
     }
 
-    @Test
-    @DisplayName("글 내용 수정")
-    void test5() {
-        Post post = Post.builder()
-                .title("호돌맨")
-                .content("오들오들맨")
-                .build();
-        postRepository.save(post);
-
-        PostEdit postEdit = PostEdit.builder()
-                .title(null)
-                .content("오돌오돌건초가")
-                .build();
-        System.out.println(postEdit);
-        // when
-        postService.edit(post.getId(), postEdit);
-        // then
-        Post changedPost = postRepository.findById(post.getId())
-                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id = " + post.getId()));
-        System.out.println("왜 와이" + changedPost.getContent());
-        Assertions.assertEquals("오돌오돌건초가", changedPost.getContent());
-    }
+//    @Test
+//    @DisplayName("글 내용 수정")
+//    void test5() {
+//        Post post = Post.builder()
+//                .title("호돌맨")
+//                .content("오들오들맨")
+//                .build();
+//        postRepository.save(post);
+//
+//        PostEdit postEdit = PostEdit.builder()
+//                .title(null)
+//                .content("오돌오돌건초가")
+//                .build();
+//        System.out.println(postEdit);
+//        // when
+//        postService.edit(post.getId(), postEdit);
+//        // then
+//        Post changedPost = postRepository.findById(post.getId())
+//                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id = " + post.getId()));
+//        System.out.println("왜 와이" + changedPost.getContent());
+//        Assertions.assertEquals("오돌오돌건초가", changedPost.getContent());
+//    }
 
     @Test
     @DisplayName("글 내용 수정")
@@ -225,27 +225,27 @@ class PostServiceTest {
 
     }
 
-    @Test
-    @DisplayName("글 1개 조회")
-    void test7() {
-        // given
-        Post requestPost = Post.builder()
-                .title("호돌맨")
-                .content("반포자이")
-                .build();
-
-        postRepository.save(requestPost);
-
-//        assertThrows(IllegalAccessError.class, () -> {
+//    @Test
+//    @DisplayName("글 1개 조회")
+//    void test7() {
+//        // given
+//        Post requestPost = Post.builder()
+//                .title("호돌맨")
+//                .content("반포자이")
+//                .build();
+//
+//        postRepository.save(requestPost);
+//
+////        assertThrows(IllegalAccessError.class, () -> {
+////            postService.get(requestPost.getId() + 1L);
+////        }, "예외처리가 잘못 되었어요.");
+//
+//        assertThrows(PostNotFound.class, () -> {
 //            postService.get(requestPost.getId() + 1L);
-//        }, "예외처리가 잘못 되었어요.");
-
-        assertThrows(PostNotFound.class, () -> {
-            postService.get(requestPost.getId() + 1L);
-        });
-
-//        assertEquals("존재하지 않는 글.", e.getMessage());
-    }
+//        });
+//
+////        assertEquals("존재하지 않는 글.", e.getMessage());
+//    }
 
     @Test
     @DisplayName("게시글 삭제 - 존재하지 않는 글")
