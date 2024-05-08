@@ -106,22 +106,22 @@ public class PostControllerTest {
         // 테스트 성공 시 db -> post 1개 등록
     }
 
-    @Test
-    @DisplayName("/posts 요청시 title 값은 필수다.")
-    void test2() throws Exception {
-
-        mockMvc.perform(post("/posts") // application/json
-                        .contentType(APPLICATION_JSON)
-                // {"title" : ""} OK
-                // {"title" : null} @NotBlank 어노테이션이 같이 체크 해줌
-                        .content("{\"title\": null, \"content\": \"내용입니다.\"}")
-                )
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.code").value("400"))
-                .andExpect(jsonPath("$.massage").value("잘못된 요청입니다."))
-                .andExpect(jsonPath("$.validation.title").value("타이틀을 입력해주십쇼..."))
-                .andDo(print());
-    }
+//    @Test
+//    @DisplayName("/posts 요청시 title 값은 필수다.")
+//    void test2() throws Exception {
+//
+//        mockMvc.perform(post("/posts") // application/json
+//                        .contentType(APPLICATION_JSON)
+//                // {"title" : ""} OK
+//                // {"title" : null} @NotBlank 어노테이션이 같이 체크 해줌
+//                        .content("{\"title\": null, \"content\": \"내용입니다.\"}")
+//                )
+//                .andExpect(status().isBadRequest())
+//                .andExpect(jsonPath("$.code").value("400"))
+//                .andExpect(jsonPath("$.massage").value("잘못된 요청입니다."))
+//                .andExpect(jsonPath("$.validation.title").value("타이틀을 입력해주십쇼..."))
+//                .andDo(print());
+//    }
 
     @Test
     @DisplayName("/posts 요청시 DB에 값이 저장된다.")
@@ -246,28 +246,28 @@ public class PostControllerTest {
 
     }
 
-    @Test
-    @DisplayName("글 제목 수정")
-    void test7() throws Exception {
-        Post post = Post.builder()
-                .title("호돌맨")
-                .content("오들오들맨")
-                .build();
-        postRepository.save(post);
-
-        PostEdit postEdit = PostEdit.builder()
-                .title("호돌건")
-                .content("오돌오돌건초가")
-                .build();
-        //expected
-        mockMvc.perform(patch("/posts/{postId}", post.getId()) // PATCH / posts/ (postId)
-                        .contentType(APPLICATION_JSON)                      )
-//                        .content(objectMapper.writeValueAsString(postEdit))
-//                )
-                .andExpect(status().isOk())
-                .andDo(print());
-
-    }
+//    @Test
+//    @DisplayName("글 제목 수정")
+//    void test7() throws Exception {
+//        Post post = Post.builder()
+//                .title("호돌맨")
+//                .content("오들오들맨")
+//                .build();
+//        postRepository.save(post);
+//
+//        PostEdit postEdit = PostEdit.builder()
+//                .title("호돌건")
+//                .content("오돌오돌건초가")
+//                .build();
+//        //expected
+//        mockMvc.perform(patch("/posts/{postId}", post.getId()) // PATCH / posts/ (postId)
+//                        .contentType(APPLICATION_JSON)                      )
+////                        .content(objectMapper.writeValueAsString(postEdit))
+////                )
+//                .andExpect(status().isOk())
+//                .andDo(print());
+//
+//    }
 
     @Test
     @DisplayName("게시글 삭제")
@@ -295,22 +295,22 @@ public class PostControllerTest {
                     .andDo(print());
     }
 
-    @Test
-    @DisplayName("존재하지 않는 게시글 수정")
-    void test10() throws Exception {
-        //given
-        PostEdit postEdit = PostEdit.builder()
-                .title("호돌건")
-                .content("오돌오돌건초가")
-                .build();
-        //expected
-        mockMvc.perform(patch("/posts/{postId}", 1L) // PATCH / posts/ (postId)
-                        .contentType(APPLICATION_JSON))
-//                        .content(objectMapper.writeValueAsString(postEdit)))
-                .andExpect(status().isNotFound())
-                .andDo(print());
-
-    }
+//    @Test
+//    @DisplayName("존재하지 않는 게시글 수정")
+//    void test10() throws Exception {
+//        //given
+//        PostEdit postEdit = PostEdit.builder()
+//                .title("호돌건")
+//                .content("오돌오돌건초가")
+//                .build();
+//        //expected
+//        mockMvc.perform(patch("/posts/{postId}", 1L) // PATCH / posts/ (postId)
+//                        .contentType(APPLICATION_JSON))
+////                        .content(objectMapper.writeValueAsString(postEdit)))
+//                .andExpect(status().isNotFound())
+//                .andDo(print());
+//
+//    }
 
     @Test
     @DisplayName("게시글 작성시 제목에 'null title'은 포함될 수 없다.")

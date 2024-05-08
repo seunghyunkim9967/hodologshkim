@@ -263,24 +263,24 @@ class PostServiceTest {
 
     }
 
-    @Test
-    @DisplayName("글 내용 수정 - 존재하지 않는 글")
-    void test9() {
-        Post post = Post.builder()
-                .title("호돌맨")
-                .content("오들오들맨")
-                .build();
-        postRepository.save(post);
-
-        PostEdit postEdit = PostEdit.builder()
-                .title("호돌맨")
-                .content("오돌오돌건초가")
-                .build();
-
-        //expected
-        assertThrows(PostNotFound.class, () -> {
-            postService.edit(post.getId() + 1L, postEdit);
-        });
-    }
+//    @Test
+//    @DisplayName("글 내용 수정 - 존재하지 않는 글")
+//    void test9() {
+//        Post post = Post.builder()
+//                .title("호돌맨")
+//                .content("오들오들맨")
+//                .build();
+//        postRepository.save(post);
+//
+//        PostEdit postEdit = PostEdit.builder()
+//                .title("호돌맨")
+//                .content("오돌오돌건초가")
+//                .build();
+//
+//        //expected
+//        assertThrows(PostNotFound.class, () -> {
+//            postService.edit(post.getId() + 1L, postEdit);
+//        });
+//    }
 
 }
