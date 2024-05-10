@@ -15,5 +15,8 @@ include::{snippets}/index/http-response.adoc[]
 include::{snippets}/index/curl-request.adoc[]
 
 ==== Level 3
+include::{snippets}/index/httpie-request.adoc[]
+===== Level 4
+
 
 
