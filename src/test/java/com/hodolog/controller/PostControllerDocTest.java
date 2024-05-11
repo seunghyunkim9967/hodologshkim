@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 
+import org.springframework.restdocs.payload.PayloadDocumentation;
+import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -34,6 +36,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "api.seunghyunman.com", uriPort = 443)
 @ExtendWith(RestDocumentationExtension.class)
 public class PostControllerDocTest {
+    /*
+    * 정리 : gradle asciidoctor task는 test 실행 후 -> gradle에 snippet, index.html 생성
+    * gradle build시 bootJar 실행. build의 index.html을 resources/static/docs로 복사
+    * */
+
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,12 +48,12 @@ public class PostControllerDocTest {
     @Autowired
     private PostRepository postRepository;
 
-    @BeforeEach
-    void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(documentationConfiguration(restDocumentation))
-                .build();
-    }
+//    @BeforeEach
+//    void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
+//        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+//                .apply(documentationConfiguration(restDocumentation))
+//                .build();
+//    }
 
     @Test
     @DisplayName("글 단건 조회 테스트")
@@ -61,7 +68,13 @@ public class PostControllerDocTest {
                         .accept(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andDo(document("index"));
+                .andDo(document("index", RequestDocumentation.pathParameters(
+                        RequestDocumentation.parameterWithName("postId").description("게시글 ID")
+                        ),
+                        PayloadDocumentation.responseFields(
+                                PayloadDocumentation.fieldWithPath()
+                        )
+                        ));
     }
 
 }

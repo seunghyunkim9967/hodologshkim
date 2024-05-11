@@ -8,6 +8,10 @@
 === 요청
 include::{snippets}/index/http-request.adoc[]
 
+=== 요청 파라매터
+include::{snippets}/index/path-parameters.adoc[]
+
+
 === 응답
 include::{snippets}/index/http-response.adoc[]
 
