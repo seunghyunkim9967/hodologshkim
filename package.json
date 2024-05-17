@@ -20,15 +20,5 @@
   "bugs": {
     "url": "https://github.com/seunghyunkim9967/hodologshkim/issues"
   },
-  "homepage": "https://github.com/seunghyunkim9967/hodologshkim#readme",
-  "devDependencies": {
-    "@babel/core": "^7.24.5",
-    "@babel/plugin-transform-react-jsx": "^7.23.4",
-    "@babel/plugin-transform-runtime": "^7.24.3",
-    "@babel/preset-env": "^7.24.5",
-    "@babel/preset-react": "^7.24.1",
-    "@babel/preset-typescript": "^7.24.1",
-    "@babel/runtime-corejs3": "^7.24.5",
-    "babel-plugin-styled-components": "^2.1.4"
-  }
+  "homepage": "https://github.com/seunghyunkim9967/hodologshkim#readme"
 }
