@@ -82,7 +82,7 @@ public class PostControllerTest {
 //                .andExpect(content().string("Hello World"))
 //                .andDo(print());
         @Test
-        @DisplayName("/posts 요청시 Hello World를 출력한다.")
+        @DisplayName("글 작성 요청시 Hello World를 출력한다.")
         void test() throws Exception {
         //given
         PostCreate request =  PostCreate.builder()
