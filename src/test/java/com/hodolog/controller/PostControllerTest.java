@@ -124,24 +124,28 @@ public class PostControllerTest {
 //    }
 
     @Test
-    @DisplayName("/posts 요청시 DB에 값이 저장된다.")
+    @DisplayName("글 작성 요청시 DB에 값이 저장된다.")
     void test3() throws Exception {
-    //before
+        // given
+        PostCreate request = PostCreate.builder()
+                .title("제목입니다.")
+                .content("내용입니다.")
+                .build();
 
-    //when
+        String json = objectMapper.writeValueAsString(request);
+
+        // when
         mockMvc.perform(post("/posts")
+                        .header("authorization", "hodolman")
                         .contentType(APPLICATION_JSON)
-                        .content("{\"title\": \"제목입니다.\", \"content\": \"내용입니다.\"}")
-                )
+                        .content(json))
                 .andExpect(status().isOk())
                 .andDo(print());
-        // db -> post 1개 등록 -> 총 2개 test1, test3 pass
-        //then
-        //고로 다른 테스트들이 영향 끼치지 않게 만들어 줘야함.
+
+        // then
         assertEquals(1L, postRepository.count());
 
         Post post = postRepository.findAll().get(0);
-
         assertEquals("제목입니다.", post.getTitle());
         assertEquals("내용입니다.", post.getContent());
     }
