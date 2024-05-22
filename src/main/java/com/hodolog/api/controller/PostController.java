@@ -55,6 +55,11 @@ public class PostController {
     }*/
 
     private final PostService postService;
+
+    @GetMapping("/test")
+    public String test() {
+        return "hello";
+    }
     // 유연한 대응 필요
     // 데이터를 검증하는 이유
     // 1. 매번 메서드마다 값을 검증 해야한다.(반복)
