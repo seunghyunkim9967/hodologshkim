@@ -1,5 +1,6 @@
 package com.hodolog.api.config;
 
+import com.hodolog.api.exception.Unauthorized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +14,15 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info(">> preHandle");
-        return true;
+
+        String accesToken = request.getParameter("accessToken");
+        log.info(">> preHandle accesToken" + accesToken);
+        if (accesToken != null && accesToken.equals("hodolman")) {
+            log.info(">> preHandle 호돌맨");
+            return true;
+        }
+
+        throw new Unauthorized();
     }
 
     @Override

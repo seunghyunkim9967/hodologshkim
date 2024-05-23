@@ -60,6 +60,11 @@ public class PostController {
     public String test() {
         return "hello";
     }
+
+    @GetMapping("/foo")
+    public String foo() {
+        return "hello foo";
+    }
     // 유연한 대응 필요
     // 데이터를 검증하는 이유
     // 1. 매번 메서드마다 값을 검증 해야한다.(반복)
