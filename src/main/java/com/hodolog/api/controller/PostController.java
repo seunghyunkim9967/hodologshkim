@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.util.HashMap;
@@ -56,13 +57,9 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/test")
-    public String test() {
-        return "hello";
-    }
-
     @GetMapping("/foo")
-    public String foo() {
+    public String foo(@RequestAttribute("userName") String userName) {
+        log.info(">>{}", userName);
         return "hello foo";
     }
     // 유연한 대응 필요

@@ -13,12 +13,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info(">> preHandle");
 
         String accesToken = request.getParameter("accessToken");
-        log.info(">> preHandle accesToken" + accesToken);
-        if (accesToken != null && accesToken.equals("hodolman")) {
-            log.info(">> preHandle 호돌맨");
+        if (accesToken != null && !accesToken.equals("")) {
+            request.setAttribute("userName", accesToken);
             return true;
         }
 
@@ -27,11 +25,11 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info(">> postHandle");
+
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        log.info(">> afterCompletion");
+
     }
 }
