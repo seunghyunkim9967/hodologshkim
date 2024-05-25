@@ -1,5 +1,6 @@
 package com.hodolog.api.controller;
 
+import com.hodolog.api.config.data.UserSession;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.exception.InvalidRequest;
 import com.hodolog.api.request.PostCreate;
@@ -58,8 +59,8 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/foo")
-    public String foo(@RequestAttribute("userName") String userName) {
-        log.info(">>{}", userName);
+    public String foo(UserSession userSession) {
+        log.info(">>{}", userSession.name);
         return "hello foo";
     }
     // 유연한 대응 필요
