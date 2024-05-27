@@ -59,9 +59,14 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/foo")
-    public String foo(UserSession userSession) {
-        log.info(">>{}", userSession.name);
-        return "hello foo";
+    public Long foo(UserSession userSession) {
+        log.info(">>{}", userSession.id);
+        return userSession.id;
+    }
+
+    @GetMapping("/bar")
+    public String bar() {
+        return "인증이 필요 없는 페이지";
     }
     // 유연한 대응 필요
     // 데이터를 검증하는 이유
