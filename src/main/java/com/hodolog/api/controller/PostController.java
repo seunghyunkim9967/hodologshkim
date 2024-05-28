@@ -61,6 +61,8 @@ public class PostController {
     @GetMapping("/foo")
     public Long foo(UserSession userSession) {
         log.info(">>{}", userSession.id);
+        //ModHeaders Authorization : value ->
+        // request headers 켜둔 상태로 타 사이트 작업 시 인증 풀릴 수 있음.
         return userSession.id;
     }
 
