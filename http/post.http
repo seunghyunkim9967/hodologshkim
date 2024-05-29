@@ -1,0 +1,10 @@
+### 로그인
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email" : "dnfheh@naver.com",
+  "password" : "12345"
+}
+
