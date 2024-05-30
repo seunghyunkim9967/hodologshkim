@@ -5,12 +5,15 @@ spring:
       path: /h2-console
 
   datasource:
-    url: jdbc:h2:mem:hodolog
+    url: jdbc:h2:mem:hodolog;NON_KEYWORDS=USER
     username: sa
     password:
     driver-class-name: org.h2.Driver
   jpa:
     defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
   data:
     web:
       pageable:
