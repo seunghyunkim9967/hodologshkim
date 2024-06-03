@@ -5,6 +5,7 @@ import com.hodolog.api.domain.User;
 import com.hodolog.api.exception.InvalidRequest;
 import com.hodolog.api.exception.InvalidSigninInformation;
 import com.hodolog.api.request.Login;
+import com.hodolog.api.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,16 +19,15 @@ import java.util.Optional;
 @Slf4j
 public class AuthController {
 
-    private final UserRepository userRepository;
+    private final AuthService authService;
 
     @PostMapping("/auth/login")
-    public User login(@RequestBody Login login) {
+    public void login(@RequestBody Login login) {
         // json 아이디/비밀번호
         log.info(">>>login = {}", login);
         // DB에서 조회
-        User user = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())
-                .orElseThrow(InvalidSigninInformation::new);
+        authService.signin(login);
         // 토큰을 응답
-        return user;
+//        return user;
     }
 }
