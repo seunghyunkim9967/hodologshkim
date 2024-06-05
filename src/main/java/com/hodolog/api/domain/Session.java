@@ -1,12 +1,11 @@
 package com.hodolog.api.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,4 +16,14 @@ public class Session {
     private Long id;
 
     private String accessToken;
+
+    @ManyToOne
+    private User user;
+
+    @Builder
+    public Session( User user) {
+//        this.id = id;
+        this.accessToken = UUID.randomUUID().toString();
+        this.user = user;
+    }
 }

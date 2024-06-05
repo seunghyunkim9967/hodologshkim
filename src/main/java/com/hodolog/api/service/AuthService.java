@@ -17,5 +17,7 @@ public class AuthService {
     public void signin(Login login) {
         User user = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())
                 .orElseThrow(InvalidSigninInformation::new);
+
+        user.addSession();
     }
 }
