@@ -26,7 +26,7 @@ public class QSession extends EntityPathBase<Session> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final QUser user;
+    public final QUsers users;
 
     public QSession(String variable) {
         this(Session.class, forVariable(variable), INITS);
@@ -46,7 +46,7 @@ public class QSession extends EntityPathBase<Session> {
 
     public QSession(Class<? extends Session> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
+        this.users = inits.isInitialized("users") ? new QUsers(forProperty("users")) : null;
     }
 
 }

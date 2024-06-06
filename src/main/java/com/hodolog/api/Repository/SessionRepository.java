@@ -1,11 +1,11 @@
 package com.hodolog.api.Repository;
 
+import com.hodolog.api.domain.Session;
 import com.hodolog.api.domain.Users;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<Users, Long> {
+public interface SessionRepository extends CrudRepository<Session, Long> {
 
-    Optional<Users> findByEmailAndPassword(String email, String password);
 }

@@ -1,7 +1,7 @@
 package com.hodolog.api.controller;
 
 import com.hodolog.api.Repository.UserRepository;
-import com.hodolog.api.domain.User;
+import com.hodolog.api.domain.Users;
 import com.hodolog.api.exception.InvalidRequest;
 import com.hodolog.api.exception.InvalidSigninInformation;
 import com.hodolog.api.request.Login;

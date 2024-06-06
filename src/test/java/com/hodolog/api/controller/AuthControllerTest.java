@@ -1,9 +1,12 @@
 package com.hodolog.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hodolog.api.Repository.SessionRepository;
 import com.hodolog.api.Repository.UserRepository;
+import com.hodolog.api.domain.Users;
 import com.hodolog.api.request.Login;
 import com.hodolog.api.request.PostCreate;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +36,9 @@ class AuthControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SessionRepository sessionRepository;
+
     @BeforeEach
     void clean() {
         userRepository.deleteAll();
@@ -40,12 +46,19 @@ class AuthControllerTest {
 
 
     @Test
-    @DisplayName("로그인 성공후 세션 1개 생성.")
+    @DisplayName("로그인 성공.")
     void test() throws Exception {
 
         //given
+        userRepository.save(Users.builder()
+                        .name("승현맨")
+                        .email("dnfheh78@naver.com")
+                        .password("1234")
+                .build());
+        // Scrypt , Bcrypt
+
         Login login = Login.builder()
-                .email("dnfheh@naver.com")
+                .email("dnfheh88@naver.com")
                 .password("1234")
                 .build();
 
@@ -63,5 +76,39 @@ class AuthControllerTest {
 //                .andExpect(content().string("{}"))
                 .andDo(print());
         // 테스트 성공 시 db -> post 1개 등록
+    }
+
+    @Test
+    @DisplayName("로그인 성공후 세션 1개 생성.")
+    void test2() throws Exception {
+
+        //given
+        userRepository.save(Users.builder()
+                .name("승현맨")
+                .email("dnfheh78@naver.com")
+                .password("1234")
+                .build());
+        // Scrypt , Bcrypt
+
+        Login login = Login.builder()
+                .email("dnfheh88@naver.com")
+                .password("1234")
+                .build();
+
+
+//        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(login);
+
+        System.out.println(json);
+
+        mockMvc.perform(post("/auth/login") // application/json
+                        .contentType(APPLICATION_JSON)
+                        .content(json)
+                )
+                .andExpect(status().isOk())
+//                .andExpect(content().string("{}"))
+                .andDo(print());
+
+        Assertions.assertEquals(1L,sessionRepository.count());
     }
 }
