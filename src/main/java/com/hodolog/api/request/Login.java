@@ -1,15 +1,13 @@
 package com.hodolog.api.request;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Login {
 
     @NotBlank(message = "이메일을 입력해주세요.")

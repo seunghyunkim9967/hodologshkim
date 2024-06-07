@@ -51,7 +51,6 @@ class AuthControllerTest {
 
         //given
         userRepository.save(Users.builder()
-                        .name("승현맨")
                         .email("dnfheh78@naver.com")
                         .password("1234")
                 .build());
@@ -84,8 +83,7 @@ class AuthControllerTest {
 
         //given
         userRepository.save(Users.builder()
-                .name("승현맨")
-                .email("dnfheh78@naver.com")
+                .email("dnfheh88@naver.com")
                 .password("1234")
                 .build());
         // Scrypt , Bcrypt
