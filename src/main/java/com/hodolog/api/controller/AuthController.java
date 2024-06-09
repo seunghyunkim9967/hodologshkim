@@ -22,11 +22,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/auth/login")
-    public void login(@RequestBody Login login) {
+    public String login(@RequestBody Login login) {
         // json 아이디/비밀번호
         log.info(">>>login = {}", login);
         // DB에서 조회
-        authService.signin(login);
+        String accessToken = authService.signin(login);
+        return accessToken;
         // 토큰을 응답
 //        return user;
     }

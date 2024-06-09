@@ -2,6 +2,7 @@ package com.hodolog.api.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Users {
     @Id
@@ -35,9 +37,14 @@ public class Users {
         this.createdAt = LocalDateTime.now();
     }
 
-    public void addSession() {
-        sessions.add(Session.builder()
+    public Session addSession() {
+        Session session = Session.builder()
                 .users(this)
-                .build());
+                .build();
+
+        sessions.add(session);
+
+        return session;
     }
+
 }
