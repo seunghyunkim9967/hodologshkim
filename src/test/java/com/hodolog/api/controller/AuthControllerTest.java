@@ -17,12 +17,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -115,5 +115,45 @@ class AuthControllerTest {
 //                .orElseThrow(RuntimeException::new);
 
         Assertions.assertEquals(1L,user.getSessions().size());
+    }
+
+    @Test
+    @DisplayName("로그인 성공후 세션 응답.")
+    void test3() throws Exception {
+
+        //given
+
+
+        Users user = userRepository.save(Users.builder()
+                .email("dnfheh88@naver.com")
+                .password("1234")
+                .build());
+        // Scrypt , Bcrypt
+
+        Login login = Login.builder()
+                .email("dnfheh88@naver.com")
+                .password("1234")
+                .build();
+
+
+//        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(login);
+
+        System.out.println(json);
+
+
+        mockMvc.perform(post("/auth/login") // application/json
+                        .contentType(APPLICATION_JSON)
+                        .content(json)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accessToken",
+                        notNullValue()))
+                .andDo(print());
+
+//        Users loggedInUser = userRepository.findById(user.getId())
+//                .orElseThrow(RuntimeException::new);
+
+//        Assertions.assertEquals(1L,user.getSessions().size());
     }
 }
