@@ -16,6 +16,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
+    //서비스를 직접 호출해서 요청 ( 내용이 달라지면 sideBack 가능성 )
     @Transactional
     public String signin(Login login) {
         Users users = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())

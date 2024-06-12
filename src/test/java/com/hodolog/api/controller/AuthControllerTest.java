@@ -3,6 +3,7 @@ package com.hodolog.api.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.api.Repository.SessionRepository;
 import com.hodolog.api.Repository.UserRepository;
+import com.hodolog.api.domain.Session;
 import com.hodolog.api.domain.Users;
 import com.hodolog.api.request.Login;
 import com.hodolog.api.request.PostCreate;
@@ -163,30 +164,19 @@ class AuthControllerTest {
 
         //given
 
-
-        Users user = userRepository.save(Users.builder()
-                .email("dnfheh88@naver.com")
-                .password("1234")
-                .build());
-        // Scrypt , Bcrypt
-
-        Login login = Login.builder()
+        //사용자 Entity Session Value 까지 넣어서 Repository Save
+        Users user = Users.builder()
                 .email("dnfheh88@naver.com")
                 .password("1234")
                 .build();
+        Session session = user.addSession();
 
+        userRepository.save(user);
 
-//        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(login);
-
-        System.out.println(json);
-
-
-        mockMvc.perform(post("/auth/login") // application/json
+        mockMvc.perform(post("/foo") // application/json
                         .contentType(APPLICATION_JSON)
-                        .content(json)
                 )
-                .andExpect(status().isOk())
+                .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.accessToken",
                         notNullValue()))
                 .andDo(print());
