@@ -27,7 +27,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
 //        UserSession userSession = new UserSession(1L);
 //        userSession.id = accessToken;
-//        return userSession;
+//        return userSession; 회식 그만 하고싶다
         return new UserSession(1L);
     }
 }

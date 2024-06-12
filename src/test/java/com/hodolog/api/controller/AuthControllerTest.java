@@ -156,4 +156,44 @@ class AuthControllerTest {
 
 //        Assertions.assertEquals(1L,user.getSessions().size());
     }
+
+    @Test
+    @DisplayName("로그인 후 권한이 필요한 페이지 접속한다 /foo.")
+    void test4() throws Exception {
+
+        //given
+
+
+        Users user = userRepository.save(Users.builder()
+                .email("dnfheh88@naver.com")
+                .password("1234")
+                .build());
+        // Scrypt , Bcrypt
+
+        Login login = Login.builder()
+                .email("dnfheh88@naver.com")
+                .password("1234")
+                .build();
+
+
+//        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(login);
+
+        System.out.println(json);
+
+
+        mockMvc.perform(post("/auth/login") // application/json
+                        .contentType(APPLICATION_JSON)
+                        .content(json)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accessToken",
+                        notNullValue()))
+                .andDo(print());
+
+//        Users loggedInUser = userRepository.findById(user.getId())
+//                .orElseThrow(RuntimeException::new);
+
+//        Assertions.assertEquals(1L,user.getSessions().size());
+    }
 }
