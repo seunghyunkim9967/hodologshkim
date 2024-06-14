@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -166,19 +167,18 @@ class AuthControllerTest {
 
         //사용자 Entity Session Value 까지 넣어서 Repository Save
         Users user = Users.builder()
-                .email("dnfheh88@naver.com")
+                .email("dnfheh882@naver.com")
                 .password("1234")
                 .build();
         Session session = user.addSession();
 
         userRepository.save(user);
 
-        mockMvc.perform(post("/foo") // application/json
+        mockMvc.perform(get("/foo") // application/json
+                        .header("Authorization", session.getAccessToken())
                         .contentType(APPLICATION_JSON)
                 )
-                .andExpect(status().isUnauthorized())
-                .andExpect(jsonPath("$.accessToken",
-                        notNullValue()))
+                .andExpect(status().isOk())
                 .andDo(print());
 
 //        Users loggedInUser = userRepository.findById(user.getId())
