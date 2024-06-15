@@ -1,14 +1,22 @@
 package com.hodolog.api.config;
 
+import com.hodolog.api.Repository.SessionRepository;
 import com.hodolog.api.config.data.UserSession;
+import com.hodolog.api.domain.Session;
 import com.hodolog.api.exception.Unauthorized;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import javax.swing.text.html.Option;
+
+@RequiredArgsConstructor
 public class AuthResolver implements HandlerMethodArgumentResolver {
+
+    private SessionRepository sessionRepository;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -22,6 +30,8 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         if (accessToken == null || accessToken.equals("")) {
             throw new Unauthorized();
         }
+
+        Option<Session> sessionOption = sessionRepository.findByAccessToken(accessToken);
 
         // 데이터베이스 사용자 확인작업
 
