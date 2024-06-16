@@ -31,13 +31,14 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
             throw new Unauthorized();
         }
 
-        Option<Session> sessionOption = sessionRepository.findByAccessToken(accessToken);
+        Session session = sessionRepository.findByAccessToken(accessToken)
+                .orElseThrow(Unauthorized::new);
 
         // 데이터베이스 사용자 확인작업
 
 //        UserSession userSession = new UserSession(1L);
 //        userSession.id = accessToken;
-//        return userSession; 회식 그만 하고싶다
-        return new UserSession(1L);
+//        return userSession; 
+        return new UserSession(session.getId());
     }
 }
