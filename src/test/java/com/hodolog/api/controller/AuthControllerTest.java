@@ -167,6 +167,7 @@ class AuthControllerTest {
 
         //사용자 Entity Session Value 까지 넣어서 Repository Save
         Users user = Users.builder()
+                .name("승현맨")
                 .email("dnfheh882@naver.com")
                 .password("1234")
                 .build();
@@ -185,5 +186,28 @@ class AuthControllerTest {
 //                .orElseThrow(RuntimeException::new);
 
 //        Assertions.assertEquals(1L,user.getSessions().size());
+    }
+
+    @Test
+    @DisplayName("로그인 후 검증되지 않은 세션값으로 권한이 필요한 페이지에 접속할 수 없다.")
+    void test5() throws Exception {
+
+        //given
+        Users user = Users.builder()
+                .name("승현맨")
+                .email("dnfheh882@naver.com")
+                .password("1234")
+                .build();
+        Session session = user.addSession();
+
+        userRepository.save(user);
+
+        mockMvc.perform(get("/foo") // application/json
+                        .header("Authorization", session.getAccessToken() + "-a")
+                        .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+
     }
 }
