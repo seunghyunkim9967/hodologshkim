@@ -182,10 +182,6 @@ class AuthControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
 
-//        Users loggedInUser = userRepository.findById(user.getId())
-//                .orElseThrow(RuntimeException::new);
-
-//        Assertions.assertEquals(1L,user.getSessions().size());
     }
 
     @Test
