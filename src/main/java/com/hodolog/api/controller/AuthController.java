@@ -28,7 +28,7 @@ public class AuthController {
 
     //cookie
     @PostMapping("/auth/login")
-    public ResponseEntity login(@RequestBody Login login) {
+    public ResponseEntity<Object> login(@RequestBody Login login) {
         String accessToken = authService.signin(login);
         ResponseCookie cookie = ResponseCookie.from("SESSION", accessToken)
                 .domain("localhost") // todo 서버 환경에 따른 분리 필요 dev.myservice.com resource 폴더(로컬, 개발, 운영 구분하여 세팅)
@@ -38,7 +38,7 @@ public class AuthController {
                 .maxAge(Duration.ofDays(30))
                 .sameSite("Strict")
                 .build();
-        log.info(">>>>>>>>> cookie={}", cookie.toString())
+        log.info(">>>>>>>>> cookie={}", cookie.toString());
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
