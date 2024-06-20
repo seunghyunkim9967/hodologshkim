@@ -206,4 +206,27 @@ class AuthControllerTest {
                 .andDo(print());
 
     }
+
+    @Test
+    @DisplayName("cookies")
+    void test60() throws Exception {
+
+        //given
+        Users user = Users.builder()
+                .name("승현맨")
+                .email("dnfheh882@naver.com")
+                .password("1234")
+                .build();
+        Session session = user.addSession();
+
+        userRepository.save(user);
+        System.out.println("session cookies accessToken" + session.getAccessToken());
+        mockMvc.perform(get("/foo") // application/json
+                        .header("Authorization", session.getAccessToken())
+                        .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+
+    }
 }
