@@ -42,6 +42,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         }
 
         String accessToken = cookies[0].getValue();
+        System.out.println(accessToken);
 
         Session session = sessionRepository.findByAccessToken(accessToken)
                 .orElseThrow(Unauthorized::new);
