@@ -26,6 +26,8 @@ public class AuthController {
 
     private final AuthService authService;
 
+    //JWT 토큰 발급 
+
     //cookie
     @PostMapping("/auth/login")
     public ResponseEntity<Object> login(@RequestBody Login login) {
