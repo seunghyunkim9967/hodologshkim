@@ -1,9 +1,5 @@
 package com.hodolog.api.controller;
 
-import com.hodolog.api.Repository.UserRepository;
-import com.hodolog.api.domain.Users;
-import com.hodolog.api.exception.InvalidRequest;
-import com.hodolog.api.exception.InvalidSigninInformation;
 import com.hodolog.api.request.Login;
 import com.hodolog.api.response.SessionResponse;
 import com.hodolog.api.service.AuthService;
@@ -12,16 +8,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Key;
-import java.time.Duration;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,13 +25,14 @@ public class AuthController {
 
     //cookie
     @PostMapping("/auth/login")
-    public ResponseEntity<Object> login(@RequestBody Login login) {
+    public SessionResponse login(@RequestBody Login login) {
         String accessToken = authService.signin(login);
 
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
         String jws = Jwts.builder().setSubject("Joe").signWith(key).compact();
 
+        return new SessionResponse(jws);
 //        ResponseCookie cookie = ResponseCookie.from("SESSION", accessToken)
 //                .domain("localhost") // todo 서버 환경에 따른 분리 필요 dev.myservice.com resource 폴더(로컬, 개발, 운영 구분하여 세팅)
 //                .path("/")
