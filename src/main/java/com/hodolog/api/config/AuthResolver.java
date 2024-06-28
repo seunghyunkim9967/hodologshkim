@@ -42,17 +42,17 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         }
 
         //JWT를 이용한 인증 -> DB조회 필요 없음
-//        String accessToken = cookies[0].getValue();
+        //T
+
+        // 데이터베이스 사용자 확인작업
+        //        String accessToken = cookies[0].getValue();
 //        System.out.println(accessToken);
 //
 //        Session session = sessionRepository.findByAccessToken(accessToken) // null check SessionRepository
 //                .orElseThrow(Unauthorized::new);
-
-        // 데이터베이스 사용자 확인작업
-
 //        UserSession userSession = new UserSession(1L);
 //        userSession.id = accessToken;
 //        return userSession; 
-        return new UserSession(session.getId());
+        return 0;//new UserSession(session.getId());
     }
 }
