@@ -29,23 +29,24 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
-        if (servletRequest == null) {
+        HttpServletRequest jws = webRequest.getNativeRequest(HttpServletRequest.class);
+        if (jws == null || jws.equals("")) {
             log.error("servletRequest null");
             throw new Unauthorized();
         }
-        Cookie[] cookies = servletRequest.getCookies();
+        Cookie[] cookies = jws.getCookies();
 
         if (cookies.length == 0) {
             log.error("cookies 없음.");
             throw new Unauthorized();
         }
 
-        String accessToken = cookies[0].getValue();
-        System.out.println(accessToken);
-
-        Session session = sessionRepository.findByAccessToken(accessToken) // null check SessionRepository
-                .orElseThrow(Unauthorized::new);
+        //JWT를 이용한 인증 -> DB조회 필요 없음
+//        String accessToken = cookies[0].getValue();
+//        System.out.println(accessToken);
+//
+//        Session session = sessionRepository.findByAccessToken(accessToken) // null check SessionRepository
+//                .orElseThrow(Unauthorized::new);
 
         // 데이터베이스 사용자 확인작업
 
