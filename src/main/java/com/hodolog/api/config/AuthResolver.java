@@ -4,6 +4,8 @@ import com.hodolog.api.Repository.SessionRepository;
 import com.hodolog.api.config.data.UserSession;
 import com.hodolog.api.domain.Session;
 import com.hodolog.api.exception.Unauthorized;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -41,6 +43,18 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
             throw new Unauthorized();
         }
 
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(jws);
+
+            //OK, we can trust this JWT
+        } catch (JwtException e) {
+            throw new Unauthorized();
+            //don't trust the JWT!
+        }
+                                                       
         //JWT를 이용한 인증 -> DB조회 필요 없음.
         return 0;//new UserSession(session.getId());
     }
