@@ -29,6 +29,9 @@ public class AuthController {
         String accessToken = authService.signin(login);
 
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        key.getEncoded();
+
+
 
         String jws = Jwts.builder().setSubject("Joe").signWith(key).compact();
 
@@ -47,23 +50,4 @@ public class AuthController {
 //                .header(HttpHeaders.SET_COOKIE, cookie.toString())
 //                .build();
     }
-
-//    @PostMapping("/auth/login")
-//    public SessionResponse login(@RequestBody Login login) {
-//        // json 아이디/비밀번호
-//        log.info(">>>login = {}", login);
-//        // DB에서 조회
-//        String accessToken = authService.signin(login);
-//        ResponseCookie cookie = ResponseCookie.from("SESSION", accessToken)
-//                .domain("localhost") // todo 서버 환경에 따른 분리 필요 dev.myservice.com resource 폴더(로컬, 개발, 운영 구분하여 세팅)
-//                .path("/")
-//                .httpOnly(true)
-//                .secure(false)
-//                .maxAge(Duration.ofDays(30))
-//                .sameSite("Strict")
-//                .build();
-////        return new SessionResponse(accessToken);
-//        // 토큰을 응답
-////        return user;
-//    }
 }
