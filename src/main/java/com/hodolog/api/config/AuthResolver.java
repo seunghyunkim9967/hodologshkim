@@ -45,7 +45,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(key)
+                    .setSigningKey(keys)
                     .build()
                     .parseClaimsJws(jws);
 

@@ -12,8 +12,6 @@ Content-Type: application/json
 GET http://localhost:8080/foo
 Content-Type: application/json
 Cookie: SESSION=5611ca63-490d-4e3e-a8c1-6259c5b195b8
-//Authorization: 5611ca63-490d-4e3e-a8c1-6259c5b195b8
-
 
 //JWT HS256 RS256 암호화 인코딩
 #
