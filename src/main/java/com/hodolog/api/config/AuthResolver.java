@@ -56,6 +56,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         }
                                                        
         //JWT를 이용한 인증 -> DB조회 필요 없음.
+        //나는 뭘 하는걸까
         return 0;//new UserSession(session.getId());
     }
 }

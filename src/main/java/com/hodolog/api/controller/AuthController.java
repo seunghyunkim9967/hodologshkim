@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Key;
+import java.util.Base64;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +30,8 @@ public class AuthController {
         String accessToken = authService.signin(login);
 
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        byte[] encodedKey = key.getEncoded();
+        String strKey = Base64.getEncoder().encodeToString(encodedKey);
         key.getEncoded();
 
 
