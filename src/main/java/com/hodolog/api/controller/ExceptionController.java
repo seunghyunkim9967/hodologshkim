@@ -21,27 +21,14 @@ public class ExceptionController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public ErrorResponse invalidRequestHandler(MethodArgumentNotValidException e) {
-        //
-//        MethodArgumentNotValidException
-//        log.info("exceptionHandler error : " + e);
             ErrorResponse response =  ErrorResponse.builder()
                     .code("400")
                     .massage("잘못된 요청입니다.")
-                    .build();
-
-
+                    .build()
                     ;
             for (FieldError filedError : e.getFieldErrors()) {
                 response.addValidation(filedError.getField(), filedError.getDefaultMessage());
             }
-//        FieldError filedError = e.getFieldError();
-//        String field = filedError.getField();
-//        String massage = filedError.getDefaultMessage();
-//
-//        Map<String, String> response = new HashMap<>();
-//
-//        response.put(field, massage);
-//        return response;
         return response;
     }
 
@@ -57,15 +44,6 @@ public class ExceptionController {
                 .massage(e.getMessage())
                 .validation(e.getValidation())
                 .build();
-
-//            body.addValidation("validationTest", "의도한 404 Valid Error");
-//        if (e instanceof InvalidRequest) {
-//            InvalidRequest invalidRequest = (InvalidRequest) e;
-//            String fieldName = invalidRequest.getFieldName();
-//            String massage = invalidRequest.getMassage();
-//            body.addValidation(fieldName,massage);
-//        }
-
 
         ResponseEntity<ErrorResponse> response = ResponseEntity.status(statusCode)
                 .body(body);

@@ -30,11 +30,6 @@ public class Post {
         return this.title;
     }
 
-//    public void change(String content, String title) {
-//        this.title = title;
-//        this.content = content;
-//    }
-
     public PostEditor.PostEditorBuilder toEditor() {
         return PostEditor.builder()
                 .title(title)
