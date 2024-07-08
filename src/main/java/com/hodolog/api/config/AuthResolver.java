@@ -45,9 +45,9 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(keys)
+                    .setSigningKey("A")
                     .build()
-                    .parseClaimsJws(jws);
+                    .parseClaimsJws(String.valueOf(jws));
 
             //OK, we can trust this JWT
         } catch (JwtException e) {
@@ -56,7 +56,6 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         }
                                                        
         //JWT를 이용한 인증 -> DB조회 필요 없음.
-        //나는 뭘 하는걸까
-        return 0;//new UserSession(session.getId());
+        return null;//new UserSession(session.getId());
     }
 }
