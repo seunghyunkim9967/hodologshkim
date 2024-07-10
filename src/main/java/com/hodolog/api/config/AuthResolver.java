@@ -8,6 +8,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -17,6 +18,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.html.Option;
+
+import static sun.security.x509.CertificateX509Key.KEY;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -42,6 +45,8 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
             log.error("cookies 없음.");
             throw new Unauthorized();
         }
+
+        byte[] decodedKey = Base64.decodeBase64(KEY);
 
         try {
             Jwts.parserBuilder()

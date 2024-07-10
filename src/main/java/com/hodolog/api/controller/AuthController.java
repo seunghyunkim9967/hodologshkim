@@ -33,7 +33,7 @@ public class AuthController {
         byte[] encodedKey = key.getEncoded();
         String strKey = Base64.getEncoder().encodeToString(encodedKey);
         key.getEncoded();
-
+//
 
 
         String jws = Jwts.builder().setSubject("Joe").signWith(key).compact();
