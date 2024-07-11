@@ -4,6 +4,8 @@ import com.hodolog.api.Repository.SessionRepository;
 import com.hodolog.api.config.data.UserSession;
 import com.hodolog.api.domain.Session;
 import com.hodolog.api.exception.Unauthorized;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -49,11 +51,11 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         byte[] decodedKey = Base64.decodeBase64(KEY);
 
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey("A")
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(decodedKey)
                     .build()
                     .parseClaimsJws(String.valueOf(jws));
-
+            log.info(">>>>>", claims);
             //OK, we can trust this JWT
         } catch (JwtException e) {
             throw new Unauthorized();
