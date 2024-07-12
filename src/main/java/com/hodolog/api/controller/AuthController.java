@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
+import java.security.Security;
 import java.util.Base64;
+
+import static sun.security.x509.CertificateX509Key.KEY;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,14 +33,12 @@ public class AuthController {
     public SessionResponse login(@RequestBody Login login) {
         String accessToken = authService.signin(login);
 
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        byte[] encodedKey = key.getEncoded();
-        String strKey = Base64.getEncoder().encodeToString(encodedKey);
-        key.getEncoded();
-//
+        SecretKey key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(KEY));
 
-
-        String jws = Jwts.builder().setSubject("Joe").signWith(key).compact();
+        String jws = Jwts.builder()
+                .setSubject("Joe")
+                .signWith(key)
+                .compact();
 
         return new SessionResponse(jws);
     }
