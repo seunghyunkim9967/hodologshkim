@@ -1,7 +1,8 @@
-### 로그인
+### 테스트 요청
 
 POST http://localhost:8080/auth/login
 Content-Type: application/json
+Authorization:
 
 {
   "email" : "dnfheh882@naver.com",
