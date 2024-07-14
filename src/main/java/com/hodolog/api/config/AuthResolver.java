@@ -56,6 +56,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
                     .build()
                     .parseClaimsJws(String.valueOf(jws));
             log.info(">>>>>", claims);
+            //claims.getBody()
             //OK, we can trust this JWT
         } catch (JwtException e) {
             throw new Unauthorized();
