@@ -18,11 +18,11 @@ public class AuthService {
 
     //서비스를 직접 호출해서 요청 ( 내용이 달라지면 sideBack 가능성 )
     @Transactional
-    public String signin(Login login) {
+    public Long signin(Login login) {
         Users users = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())
                 .orElseThrow(InvalidSigninInformation::new);
 
         Session session = users.addSession();
-        return session.getAccessToken();
+        return users.getId();
     }
 }

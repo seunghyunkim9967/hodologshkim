@@ -31,12 +31,12 @@ public class AuthController {
     //cookie
     @PostMapping("/auth/login")
     public SessionResponse login(@RequestBody Login login) {
-        String accessToken = authService.signin(login);
+        Long userId = authService.signin(login);
 
         SecretKey key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(KEY));
 
         String jws = Jwts.builder()
-                .setSubject("Joe")
+                .setSubject(String.valueOf(userId))
                 .signWith(key)
                 .compact();
 
