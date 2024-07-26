@@ -1,11 +1,11 @@
 ### 테스트 요청
 
-POST http://localhost:8080/auth/login
+POST http://localhost:8080/foo
 Content-Type: application/json
-Authorization: asdf
+Authorization: asdf // auth.http 토큰값
 
 {
-  "email" : "dnfheh882@naver.com",
+  "email" : "dnfheh@naver.com",
   "password" : "1234"
 }
 

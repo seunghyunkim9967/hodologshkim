@@ -36,15 +36,8 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest jws = webRequest.getNativeRequest(HttpServletRequest.class);
+        String jws = webRequest.getHeader("Authorization");
         if (jws == null || jws.equals("")) {
-            log.error("servletRequest null");
-            throw new Unauthorized();
-        }
-        Cookie[] cookies = jws.getCookies();
-
-        if (cookies.length == 0) {
-            log.error("cookies 없음.");
             throw new Unauthorized();
         }
 
@@ -55,15 +48,18 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
                     .setSigningKey(decodedKey)
                     .build()
                     .parseClaimsJws(String.valueOf(jws));
-            log.info(">>>>>", claims);
+            String userId = claims.getBody().getSubject();
+//            log.info(">>>>>", claims);
             //claims.getBody().getSubject() -> result = Joe (AuthController auth/login)
             //OK, we can trust this JWT
+            return new UserSession(Long.parseLong(userId));
         } catch (JwtException e) {
             throw new Unauthorized();
             //don't trust the JWT!
         }
                                                        
         //JWT를 이용한 인증 -> DB조회 필요 없음.
-        return null;//new UserSession(session.getId());
+//        return null;
+        //new UserSession(session.getId());
     }
 }
