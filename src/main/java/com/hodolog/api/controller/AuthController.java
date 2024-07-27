@@ -23,7 +23,11 @@ import static sun.security.x509.CertificateX509Key.KEY;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
+    /* byte -> String Base64 encode */
+    /* String -> byte Base64 decode */
 
+    /* 암호화 복호화 분리 */
+    private static final String KEY = "rTPmA9Sgk+Q1XwuJbG7E6xFFUhQpdi+al5iyPnRTK/Q=";
     private final AuthService authService;
 
     //JWT 토큰 발급 
