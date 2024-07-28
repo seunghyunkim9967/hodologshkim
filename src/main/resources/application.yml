@@ -28,5 +28,5 @@ spring:
         one-indexed-parameters: true
         
 
-#hodolman:
-#  jwt-key: "rTPmA9Sgk+Q1XwuJbG7E6xFFUhQpdi+al5iyPnRTK/Q="
+hodolman:
+  hello: "world"
