@@ -1,8 +1,11 @@
 package com.hodolog;
 
+import com.hodolog.api.config.AppConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+@EnableConfigurationProperties(AppConfig.class) // AppConfig의 ConfigurationProperties 에 @Configration 어노테이션 보다 선호함.
 @SpringBootApplication
 public class HodologApplication {
 

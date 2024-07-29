@@ -27,7 +27,9 @@ import static sun.security.x509.CertificateX509Key.KEY;
 @RequiredArgsConstructor
 public class AuthResolver implements HandlerMethodArgumentResolver {
 
-    private SessionRepository sessionRepository;
+    private static final String KEY = "rTPmA9Sgk+Q1XwuJbG7E6xFFUhQpdi+alSiyPnRTK/Q=";
+    private final SessionRepository sessionRepository;
+    private final AppConfig appConfig;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -36,6 +38,12 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        //sout System.out.println();
+        log.info(">>>{}", appConfig.toString());
+        // List : appConfig = {AppConfig@10488} "AppConfig(hello=[a, b, c, d])" -> c
+        // Map  :
+        System.out.println(appConfig.hello.get("name"));
+
         String jws = webRequest.getHeader("Authorization");
         if (jws == null || jws.equals("")) {
             throw new Unauthorized();

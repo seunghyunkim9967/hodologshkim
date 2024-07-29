@@ -29,4 +29,8 @@ spring:
         
 
 hodolman:
-  hello: "world"
+  hello:
+    name: "승현김"
+    home: "bucheon"
+    hobby: "programming"
+
