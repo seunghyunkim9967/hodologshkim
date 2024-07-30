@@ -42,7 +42,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         log.info(">>>{}", appConfig.toString());
         // List : appConfig = {AppConfig@10488} "AppConfig(hello=[a, b, c, d])" -> c
         // Map  :
-        System.out.println(appConfig.hello.get("name"));
+//        System.out.println(appConfig.hello.get("name"));
 
         String jws = webRequest.getHeader("Authorization");
         if (jws == null || jws.equals("")) {
