@@ -29,9 +29,6 @@ spring:
         
 
 hodolman:
-  hello:
-    name: "승현김"
-    home: "bucheon"
-    hobby: "programming"
-    age: 29
+  jwt-key: "rTPmA9Sgk+Q1XwuJbG7E6xFFUhQpdi+al5iyPnRTK/Q="
+
 

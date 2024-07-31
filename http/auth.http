@@ -9,9 +9,9 @@ Content-Type: application/json
 }
 
 ###인증 페이지 요청
-GET http://localhost:8080/foo
-Content-Type: application/json
-Cookie: SESSION=5611ca63-490d-4e3e-a8c1-6259c5b195b8
+#GET http://localhost:8080/foo
+#Content-Type: application/json
+#Cookie: SESSION=5611ca63-490d-4e3e-a8c1-6259c5b195b8
 
 #
 #{

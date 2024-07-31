@@ -27,7 +27,7 @@ import static sun.security.x509.CertificateX509Key.KEY;
 @RequiredArgsConstructor
 public class AuthResolver implements HandlerMethodArgumentResolver {
 
-    private static final String KEY = "rTPmA9Sgk+Q1XwuJbG7E6xFFUhQpdi+alSiyPnRTK/Q=";
+//    private static final String KEY = "rTPmA9Sgk+Q1XwuJbG7E6xFFUhQpdi+alSiyPnRTK/Q=";
     private final SessionRepository sessionRepository;
     private final AppConfig appConfig;
 
@@ -49,7 +49,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
             throw new Unauthorized();
         }
 
-        byte[] decodedKey = Base64.decodeBase64(KEY);
+        byte[] decodedKey = Base64.decodeBase64(appConfig.jwtKey);
 
         try {
             Jws<Claims> claims = Jwts.parserBuilder()

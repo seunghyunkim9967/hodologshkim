@@ -2,7 +2,7 @@
 
 POST http://localhost:8080/foo
 Content-Type: application/json
-Authorization: asdf // auth.http 토큰값
+Authorization: asdfasdfasdfasd // auth.http 토큰값
 
 {
   "email" : "dnfheh@naver.com",

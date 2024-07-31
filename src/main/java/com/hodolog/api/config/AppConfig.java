@@ -12,13 +12,7 @@ public class AppConfig {
     //application.yml의
     // hodolman:
     //   hello : "world" 가 들어가게 됨.
-    public Hello hello;
+    public String jwtKey;
 
-    @Data
-    public static class Hello {
-        public String name;
-        public String home;
-        public String hobby;
-        public Long age;
-    }
+
 }
