@@ -41,7 +41,7 @@ public class AuthController {
 
 //        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 //        Base64.getEncoder().encode(key.getEncoded());
-        SecretKey key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(appConfig.jwtKey));
+        SecretKey key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(appConfig.getJwtKey()));
         //Evaluate expression 확인
         //appConfig.jwtKey result :  jwtKey = "rTPmA9Sgk+Q1XwuJbG7E6xFFUhQpdi+al5iyPnRTK/Q="
         /* compact부분 에러

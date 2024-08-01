@@ -49,7 +49,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
             throw new Unauthorized();
         }
 
-        byte[] decodedKey = Base64.decodeBase64(appConfig.jwtKey);
+        byte[] decodedKey = Base64.decodeBase64(appConfig.getJwtKey());
 
         try {
             Jws<Claims> claims = Jwts.parserBuilder()
