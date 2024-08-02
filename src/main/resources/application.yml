@@ -15,10 +15,10 @@ spring:
     hibernate:
       ddl-auto: create-drop
     defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:data.sql
+#  sql:
+#    init:
+#      mode: always
+#      data-locations: classpath:data.sql
 
   data:
     web:
