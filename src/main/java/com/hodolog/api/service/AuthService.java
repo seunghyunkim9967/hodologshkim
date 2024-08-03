@@ -6,6 +6,7 @@ import com.hodolog.api.domain.Session;
 import com.hodolog.api.domain.Users;
 import com.hodolog.api.exception.InvalidSigninInformation;
 import com.hodolog.api.request.Login;
+import com.hodolog.api.request.Signup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,5 +25,15 @@ public class AuthService {
 
         Session session = users.addSession();
         return users.getId();
+    }
+
+    public void signup(Signup signup) {
+        var user = Users.builder()
+                .name(signup.getName())
+                .password(signup.getPassword())
+                .email(signup.getEmail())
+                .build();
+
+        userRepository.save(user);
     }
 }

@@ -2,6 +2,7 @@ package com.hodolog.api.controller;
 
 import com.hodolog.api.config.AppConfig;
 import com.hodolog.api.request.Login;
+import com.hodolog.api.request.Signup;
 import com.hodolog.api.response.SessionResponse;
 import com.hodolog.api.service.AuthService;
 import io.jsonwebtoken.Jwts;
