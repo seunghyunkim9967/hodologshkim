@@ -1,1 +1,2 @@
-INSERT INTO USERS ( name, email, password, created_at) VALUES ('승현맨22', 'dnfheh@naver.com', '1234', '2024-05-30 21:48:00')
+-- INSERT INTO USERS ( name, email, password, created_at) VALUES ('승현맨22', 'dnfheh@naver.com', '1234', '2024-05-30 21:48:00') AuthService 테스트를 위한 주석처리와 에러 없이 실행하기 위해 의미없는 UPDATE 문 삽입 (파일 삭제 하지 않고 테스트 진행하기 위함)
+UPDATE USERS SET name = '승현맨테스트'
