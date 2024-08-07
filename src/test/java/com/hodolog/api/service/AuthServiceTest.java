@@ -3,11 +3,15 @@ package com.hodolog.api.service;
 import com.hodolog.api.Repository.PostRepository;
 import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.domain.Users;
+import com.hodolog.api.exception.AlreadyExistsEmailException;
 import com.hodolog.api.request.Signup;
 import org.apache.catalina.User;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.rmi.AlreadyBoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,10 +68,8 @@ class AuthServiceTest {
                 .email("dnfheh@naver.com")
                 .name("승현맨")
                 .build();
-        //when
-        authService.signup(signup);
-        //then
-        Assertions.assertEquals(1, userRepository.count());
+        //expected
+        assertThrows(AlreadyExistsEmailException.class, () -> authService.signup(signup));
     }
 
 }

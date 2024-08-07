@@ -11,6 +11,7 @@ import com.hodolog.api.request.Login;
 import com.hodolog.api.request.Signup;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,10 +38,19 @@ public class AuthService {
         if (usersOptional.isPresent()) {
             throw new AlreadyExistsEmailException();
         }
+        //saltLength : saltGenerator = KeyGenerators.secureRandom(saltLength) 랜덤 Byte 생성
+        SCryptPasswordEncoder encoder = new SCryptPasswordEncoder(
+                16,
+                8,
+                1,
+                32,
+                64);
+
+        String encryptedPassword = encoder.encode(signup.getPassword());
 
         var user = Users.builder()
                 .name(signup.getName())
-                .password(signup.getPassword())
+                .password(encryptedPassword)
                 .email(signup.getEmail())
                 .build();
 

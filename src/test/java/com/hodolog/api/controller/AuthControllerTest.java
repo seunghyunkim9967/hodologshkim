@@ -5,8 +5,10 @@ import com.hodolog.api.Repository.SessionRepository;
 import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.domain.Session;
 import com.hodolog.api.domain.Users;
+import com.hodolog.api.exception.AlreadyExistsEmailException;
 import com.hodolog.api.request.Login;
 import com.hodolog.api.request.PostCreate;
+import com.hodolog.api.request.Signup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -202,6 +204,24 @@ class AuthControllerTest {
                         .header("Authorization", session.getAccessToken() + "-a")
                         .contentType(APPLICATION_JSON)
                 )
+                .andExpect(status().isOk())
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("회원가입")
+    void test6() throws Exception {
+        //given
+        Signup signup = Signup.builder()
+                .password("1234")
+                .email("dnfheh@naver.com")
+                .name("승현맨")
+                .build();
+        //expected
+        mockMvc.perform(post("/auth/signup") // application/json
+                        .content(objectMapper.writeValueAsString(signup))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
 
