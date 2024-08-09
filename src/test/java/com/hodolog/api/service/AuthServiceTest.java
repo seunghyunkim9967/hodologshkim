@@ -4,6 +4,7 @@ import com.hodolog.api.Repository.PostRepository;
 import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.domain.Users;
 import com.hodolog.api.exception.AlreadyExistsEmailException;
+import com.hodolog.api.request.Login;
 import com.hodolog.api.request.Signup;
 import org.apache.catalina.User;
 import org.junit.jupiter.api.*;
@@ -71,6 +72,30 @@ class AuthServiceTest {
                 .build();
         //expected
         assertThrows(AlreadyExistsEmailException.class, () -> authService.signup(signup));
+    }
+
+    @Test
+    @DisplayName("로그인 성공")
+    void test3() {
+        //given
+        Signup signup = Signup.builder()
+                .password("1234")
+                .email("dnfheh@naver.com")
+                .name("승현맨")
+                .build();
+        authService.signup(signup);
+
+        Login login = Login.builder()
+                .email("dnfheh@naver.com")
+                .password("1234")
+                .build();
+
+        // when
+        authService.signin(login);
+
+        //then
+
+
     }
 
 }
