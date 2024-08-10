@@ -91,6 +91,7 @@ class AuthServiceTest {
                 .build();
 
         // when
+        // authService.signin 내부 encoder.matches 사용 유무로 테스트 결과가 달라짐 ( hash 값 복호화 )
         authService.signin(login);
 
         //then

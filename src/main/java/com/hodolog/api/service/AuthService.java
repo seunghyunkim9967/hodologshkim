@@ -26,10 +26,25 @@ public class AuthService {
     //서비스를 직접 호출해서 요청 ( 내용이 달라지면 sideBack 가능성 )
     @Transactional
     public Long signin(Login login) {
-        Users users = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())
+//        Users users = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())
+//                .orElseThrow(InvalidSigninInformation::new);
+
+        Users users = userRepository.findByEmail(login.getEmail())
                 .orElseThrow(InvalidSigninInformation::new);
 
-        Session session = users.addSession();
+        SCryptPasswordEncoder encoder = new SCryptPasswordEncoder(
+                16,
+                8,
+                1,
+                32,
+                64);
+
+        //내부적으로 암호화된 Hash값. 복호화 하여 같은 값인지 확인.
+        var matches = encoder.matches(login.getPassword(), users.getPassword());
+        if (!matches) {
+            throw new InvalidSigninInformation();
+        }
+//        Session session = users.addSession();
         return users.getId();
     }
 
