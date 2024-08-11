@@ -40,6 +40,7 @@ public class AuthService {
                 64);
 
         //내부적으로 암호화된 Hash값. 복호화 하여 같은 값인지 확인.
+        // 사용자의 암호화된 비밀번호의 salt값이 사용자의 비밀번호에 포함. (salt값을 알아내려면 사용자의 정보 조회)
         var matches = encoder.matches(login.getPassword(), users.getPassword());
         if (!matches) {
             throw new InvalidSigninInformation();

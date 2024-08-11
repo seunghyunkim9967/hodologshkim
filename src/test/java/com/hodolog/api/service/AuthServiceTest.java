@@ -4,6 +4,7 @@ import com.hodolog.api.Repository.PostRepository;
 import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.domain.Users;
 import com.hodolog.api.exception.AlreadyExistsEmailException;
+import com.hodolog.api.exception.InvalidSigninInformation;
 import com.hodolog.api.request.Login;
 import com.hodolog.api.request.Signup;
 import org.apache.catalina.User;
@@ -92,10 +93,32 @@ class AuthServiceTest {
 
         // when
         // authService.signin 내부 encoder.matches 사용 유무로 테스트 결과가 달라짐 ( hash 값 복호화 )
-        authService.signin(login);
+        Long userId = authService.signin(login);
 
         //then
+        Assertions.assertNotNull(userId);
 
+    }
+
+    @Test
+    @DisplayName("로그인시 비밀번호 틀림")
+    void test4() {
+        //given
+        Signup signup = Signup.builder()
+                .password("1234")
+                .email("dnfheh@naver.com")
+                .name("승현맨")
+                .build();
+        authService.signup(signup);
+
+        Login login = Login.builder()
+                .email("dnfheh@naver.com")
+                .password("5678")
+                .build();
+
+        // expected
+        Assertions.assertThrows(InvalidSigninInformation.class,
+                () -> authService.signin(login));
 
     }
 
