@@ -1,22 +1,20 @@
 package com.hodolog.api.service;
 
-import com.hodolog.api.Repository.PostRepository;
 import com.hodolog.api.Repository.UserRepository;
+import com.hodolog.api.crypto.ScryptPasswordEncoder;
 import com.hodolog.api.domain.Users;
 import com.hodolog.api.exception.AlreadyExistsEmailException;
 import com.hodolog.api.exception.InvalidSigninInformation;
 import com.hodolog.api.request.Login;
 import com.hodolog.api.request.Signup;
-import org.apache.catalina.User;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.rmi.AlreadyBoundException;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("test")
 @SpringBootTest
 class AuthServiceTest {
 
@@ -47,8 +45,8 @@ class AuthServiceTest {
         Assertions.assertEquals(1, userRepository.count());
 
         Users user = userRepository.findAll().iterator().next();
-        assertNotEquals("1234", user.getPassword());
-        assertNotNull("1234", user.getPassword());
+        assertEquals("1234", user.getPassword());
+        assertNotNull(user.getPassword());
         assertEquals("dnfheh@naver.com", user.getEmail());
         assertEquals("승현맨", user.getName());
 
@@ -104,12 +102,15 @@ class AuthServiceTest {
     @DisplayName("로그인시 비밀번호 틀림")
     void test4() {
         //given
-        Signup signup = Signup.builder()
-                .password("1234")
+        ScryptPasswordEncoder encoder = new ScryptPasswordEncoder();
+
+        String encryptedPassword = encoder.encrypt("1234");
+        Users user = Users.builder()
                 .email("dnfheh@naver.com")
-                .name("승현맨")
+                .password("1234")
+                .name("짱돌군")
                 .build();
-        authService.signup(signup);
+        userRepository.save(user);
 
         Login login = Login.builder()
                 .email("dnfheh@naver.com")
