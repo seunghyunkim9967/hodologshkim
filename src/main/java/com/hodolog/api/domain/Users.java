@@ -26,25 +26,12 @@ public class Users {
 
     private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
-    private List<Session> sessions = new ArrayList<>();
-
     @Builder
     public Users( String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.createdAt = LocalDateTime.now();
-    }
-
-    public Session addSession() {
-        Session session = Session.builder()
-                .users(this)
-                .build();
-
-        sessions.add(session);
-
-        return session;
     }
 
 }

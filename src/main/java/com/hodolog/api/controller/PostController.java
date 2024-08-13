@@ -1,6 +1,5 @@
 package com.hodolog.api.controller;
 
-import com.hodolog.api.config.data.UserSession;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.exception.InvalidRequest;
 import com.hodolog.api.request.PostCreate;
@@ -58,18 +57,6 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/foo")
-    public Long foo(UserSession userSession) {
-        log.info(">>{}", userSession.id);
-        //ModHeaders Authorization : value ->
-        // request headers 켜둔 상태로 타 사이트 작업 시 인증 풀릴 수 있음.
-        return userSession.id;
-    }
-
-    @GetMapping("/bar")
-    public String bar() {
-        return "인증이 필요 없는 페이지";
-    }
     // 유연한 대응 필요
     // 데이터를 검증하는 이유
     // 1. 매번 메서드마다 값을 검증 해야한다.(반복)

@@ -1,7 +1,6 @@
 package com.hodolog.api.controller;
 
 import com.hodolog.api.config.AppConfig;
-import com.hodolog.api.request.Login;
 import com.hodolog.api.request.Signup;
 import com.hodolog.api.response.SessionResponse;
 import com.hodolog.api.service.AuthService;
@@ -32,33 +31,6 @@ public class AuthController {
     /* 암호화 복호화 분리 */
     private final AuthService authService;
     private final AppConfig appConfig;
-
-    //JWT 토큰 발급 
-
-    //cookie
-    @PostMapping("/auth/login")
-    public SessionResponse login(@RequestBody Login login) {
-        Long userId = authService.signin(login);
-
-//        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-//        Base64.getEncoder().encode(key.getEncoded());
-        SecretKey key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(appConfig.getJwtKey()));
-        //Evaluate expression 확인
-        //appConfig.jwtKey result :  jwtKey = "rTPmA9Sgk+Q1XwuJbG7E6xFFUhQpdi+al5iyPnRTK/Q="
-        /* compact부분 에러
-        *  UnavailableImplementationException : jjwt-jackson -> 토큰을 생성할때 자동으로 Jackson 라이브러리를 가져다 Json 매핑
-        *  compact() 함수 호출할때 Serializer = 커스텀으로 구현하거나 구현체를 넣어줘야함
-        *  하지만 난 해결안됨 왜 와이
-        * */
-
-        String jws = Jwts.builder()
-                .setSubject(String.valueOf(userId))
-                .signWith(key)
-                .setIssuedAt(new Date())
-                .compact();
-
-        return new SessionResponse(jws);
-    }
 
     @PostMapping("/auth/signup")
     public void signup(@RequestBody Signup signup) {
