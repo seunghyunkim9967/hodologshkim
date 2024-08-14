@@ -3,7 +3,7 @@ package com.hodolog.api.domain;
 import com.hodolog.api.request.PostEdit;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Getter

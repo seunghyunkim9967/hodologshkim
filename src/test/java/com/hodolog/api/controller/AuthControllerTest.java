@@ -1,12 +1,9 @@
 package com.hodolog.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hodolog.api.Repository.SessionRepository;
 import com.hodolog.api.Repository.UserRepository;
-import com.hodolog.api.domain.Session;
 import com.hodolog.api.domain.Users;
 import com.hodolog.api.exception.AlreadyExistsEmailException;
-import com.hodolog.api.request.Login;
 import com.hodolog.api.request.PostCreate;
 import com.hodolog.api.request.Signup;
 import org.junit.jupiter.api.Assertions;
