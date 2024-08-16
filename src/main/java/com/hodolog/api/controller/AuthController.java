@@ -33,6 +33,15 @@ public class AuthController {
     *  Cookie 인증 값이 없으면 당연히 login 페이지로 이동됨
     *   */
 
+    /*
+        로그인 요청 처리 - 전달받은 ID, PW AuthenticationManager에 전달하여 인증
+        AuthenticationManager : Provider 사용 ( 실제 인증 처리 ) 성공 시 Authentication 객체 반환 실패 시 Exception
+        인증 성공 시 객체 저장 - 필터
+        Manager : 실제 인증 처리
+        Provider : 인증요청 처리 성공
+        HGolder : 인증정보 저장
+     */
+
     /* 암호화 복호화 분리 */
     private final AuthService authService;
     private final AppConfig appConfig;
