@@ -27,6 +27,7 @@ public class Post {
 
     public String getTitle(String title) {
         // 서비스의 정책을 넣지마세요!!! 절대!!!
+
         return this.title;
     }
 

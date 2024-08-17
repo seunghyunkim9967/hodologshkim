@@ -9,6 +9,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,10 +42,17 @@ public class AuthController {
         Provider : 인증요청 처리 성공
         HGolder : 인증정보 저장
      */
+    //(괄호)
 
     /* 암호화 복호화 분리 */
     private final AuthService authService;
     private final AppConfig appConfig;
+
+    @GetMapping("/auth/login")
+    public String login() {
+        return "로그인 페이지입니다.";
+    }
+
 
     @PostMapping("/auth/signup")
     public void signup(@RequestBody Signup signup) {
