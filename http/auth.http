@@ -1,3 +1,13 @@
+### 회원가입
+POST http://localhost:8080/auth/signup
+Content-Type: application/Json
+
+{
+  "name": "승현맨",
+  "email": "dnfheh@naver.com",
+  "password": "1234"
+}
+
 ### 로그인
 
 POST http://localhost:8080/auth/login

@@ -1,10 +1,7 @@
 package com.hodolog.api.service;
 
 import com.hodolog.api.Repository.UserRepository;
-import com.hodolog.api.crypto.ScryptPasswordEncoder;
 import com.hodolog.api.domain.Users;
-import com.hodolog.api.exception.AlreadyExistsEmailException;
-import com.hodolog.api.exception.InvalidSigninInformation;
 import com.hodolog.api.request.Signup;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
