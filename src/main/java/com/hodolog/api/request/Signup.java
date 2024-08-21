@@ -1,12 +1,10 @@
 package com.hodolog.api.request;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
 public class Signup {
     private String email;
     private String name;
