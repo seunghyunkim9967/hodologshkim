@@ -27,10 +27,9 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
                 .massage("아이디 혹은 비밀번호가 올바르지 않습니다.")
                 .build();
 
-        objectMapper.writeValueAsString(errorResponse);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
-        
+        objectMapper.writeValue(response.getWriter(), errorResponse);
 
-        response.getWriter().write(json);
     }
 }

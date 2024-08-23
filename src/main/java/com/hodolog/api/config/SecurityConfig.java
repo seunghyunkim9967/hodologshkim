@@ -1,6 +1,7 @@
 package com.hodolog.api.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.config.handler.Http401Handler;
 import com.hodolog.api.config.handler.Http403Handler;
@@ -63,7 +64,7 @@ public class SecurityConfig {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
-                .failureHandler(new LoginFailHandler())
+                .failureHandler(new LoginFailHandler(new ObjectMapper()))
                 .and()
                 .exceptionHandling(e-> {
                     e.accessDeniedHandler(new Http403Handler());
