@@ -4,6 +4,7 @@ package com.hodolog.api.config;
 import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.config.handler.Http401Handler;
 import com.hodolog.api.config.handler.Http403Handler;
+import com.hodolog.api.config.handler.LoginFailHandler;
 import com.hodolog.api.domain.Users;
 import com.querydsl.core.annotations.Config;
 import jakarta.servlet.ServletException;
@@ -62,6 +63,7 @@ public class SecurityConfig {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
+                .failureHandler(new LoginFailHandler())
                 .and()
                 .exceptionHandling(e-> {
                     e.accessDeniedHandler(new Http403Handler());
