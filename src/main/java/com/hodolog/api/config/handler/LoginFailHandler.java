@@ -7,10 +7,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,7 +31,10 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
                 .massage("아이디 혹은 비밀번호가 올바르지 않습니다.")
                 .build();
 
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(UTF_8.name());
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
 
         objectMapper.writeValue(response.getWriter(), errorResponse);
 
