@@ -64,14 +64,14 @@ public class SecurityConfig {
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/")
-                .failureHandler(new LoginFailHandler(objectMapper))
-                .and()
+//                .formLogin()
+//                .loginPage("/auth/login")
+//                .loginProcessingUrl("/auth/login")
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                .defaultSuccessUrl("/")
+//                .failureHandler(new LoginFailHandler(objectMapper))
+//                .and()
                 .exceptionHandling(e-> {
                     e.accessDeniedHandler(new Http403Handler(objectMapper));
                     e.authenticationEntryPoint(new Http401Handler(objectMapper));
