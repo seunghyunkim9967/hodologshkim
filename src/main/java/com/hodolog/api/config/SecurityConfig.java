@@ -7,6 +7,7 @@ import com.hodolog.api.config.filter.EmailPasswordAuthFilter;
 import com.hodolog.api.config.handler.Http401Handler;
 import com.hodolog.api.config.handler.Http403Handler;
 import com.hodolog.api.config.handler.LoginFailHandler;
+import com.hodolog.api.config.handler.LoginSuccessHandler;
 import com.hodolog.api.domain.Users;
 import com.querydsl.core.annotations.Config;
 import jakarta.servlet.ServletException;
@@ -69,11 +70,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/login").permitAll()
-                .requestMatchers("/auth/signup").permitAll()
-//                .requestMatchers("/user").hasRole("USER")
-//                .requestMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .addFilterBefore(usernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(e-> {
@@ -92,7 +89,7 @@ public class SecurityConfig {
     public EmailPasswordAuthFilter usernamePasswordAuthenticationFilter() {
         EmailPasswordAuthFilter filter = new EmailPasswordAuthFilter("/auth/login", objectMapper);
         filter.setAuthenticationManager(authenticationManager());
-        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/"));
+        filter.setAuthenticationSuccessHandler(new LoginSuccessHandler(objectMapper));
         filter.setAuthenticationFailureHandler(new LoginFailHandler(objectMapper));
         filter.setSecurityContextRepository(new HttpSessionSecurityContextRepository()); // 꼭 있어야 세션이 발급됨.
 

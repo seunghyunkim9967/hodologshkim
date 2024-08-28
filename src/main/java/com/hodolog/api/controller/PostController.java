@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -106,6 +107,7 @@ public class PostController {
     posts -> 글 전체 조회(검색 + 페이징)
             posts/{postId} -> 글 한개만 조회
     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/posts")
     public Map<String, String> post(@RequestBody @Valid PostCreate request, @RequestHeader String authorization) {
 
@@ -142,6 +144,7 @@ public class PostController {
         return postService.getList(postSearch);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/posts/{postId}")
     public void edit(@PathVariable Long postId, @RequestBody @Valid PostEdit request, @RequestHeader String authorization)  {
         if (authorization.equals("hodolman")) {
@@ -150,6 +153,7 @@ public class PostController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/posts/{postId}")
     public void delete(@PathVariable Long postId, @RequestHeader String authorization)  {
         if (authorization.equals("hodolman")) {
