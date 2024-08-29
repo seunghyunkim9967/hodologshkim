@@ -109,20 +109,20 @@ public class PostController {
     */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/posts")
-    public Map<String, String> post(@RequestBody @Valid PostCreate request, @RequestHeader String authorization) {
+    public void post(@RequestBody @Valid PostCreate request) {
 
         //기본적인 요청 인증 값 확인
         //1. GET Parameter -> ??
-        if (authorization.equals("hodolman")) {
-            request.validate();
-            postService.write(request);
-        }
+//        if (authorization.equals("hodolman")) {
+//            request.validate();
+//            postService.write(request);
+//        }
         //2. Header
 
 //        request.validate();
 //        postService.write(request);
-        return Map.of();
-
+        request.validate();
+        postService.write(request);
     }
 
     // 조회 API

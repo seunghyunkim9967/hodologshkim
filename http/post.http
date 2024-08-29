@@ -1,11 +1,11 @@
-### 테스트 요청
+### 게시글 작성
 
-POST http://localhost:8080/foo
+POST http://localhost:8080/posts
 Content-Type: application/json
-Authorization: asdfasdfasdfasd // auth.http 토큰값
+#Authorization: asdfasdfasdfasd // auth.http 토큰값
 
 {
-  "email" : "dnfheh@naver.com",
-  "password" : "1234"
+  "title" : "제목입니다.",
+  "content" : "내용입니다."
 }
 
