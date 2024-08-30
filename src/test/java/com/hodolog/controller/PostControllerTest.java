@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -124,6 +125,7 @@ public class PostControllerTest {
 //    }
 
     @Test
+    @WithMockUser(username = "dnfheh@naver.com", roles = {"ADMIN", "USER"})
     @DisplayName("글 작성 요청시 DB에 값이 저장된다.")
     void test3() throws Exception {
         // given
@@ -274,6 +276,7 @@ public class PostControllerTest {
 //    }
 
     @Test
+    @WithMockUser(username = "dnfheh@naver.com", roles = {"ADMIN", "USER"})
     @DisplayName("게시글 삭제")
     void test8() throws Exception {
         Post post = Post.builder()
@@ -293,7 +296,7 @@ public class PostControllerTest {
     @Test
     @DisplayName("존재하지 않는 게시글 조회")
     void test9() throws Exception {
-            mockMvc.perform(delete("/posts/{postId}", 1L)
+            mockMvc.perform(get("/posts/{postId}", 1L)
                     .contentType(APPLICATION_JSON))
                     .andExpect(status().isNotFound())
                     .andDo(print());
