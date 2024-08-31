@@ -108,6 +108,7 @@ public class PostController {
             posts/{postId} -> 글 한개만 조회
     */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') && #request.title = '하하하' ")
     @PostMapping("/posts")
     public void post(@RequestBody @Valid PostCreate request) {
 
@@ -153,13 +154,11 @@ public class PostController {
 
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') && hasPermission(#postId, 'POST', 'DELETE')")
     @DeleteMapping("/posts/{postId}")
-    public void delete(@PathVariable Long postId, @RequestHeader String authorization)  {
-        if (authorization.equals("hodolman")) {
+    public void delete(@PathVariable Long postId)  {
             postService.delete(postId);
-        }
-
     }
 
 }
