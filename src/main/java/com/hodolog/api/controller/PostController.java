@@ -1,5 +1,6 @@
 package com.hodolog.api.controller;
 
+import com.hodolog.api.config.UserPrincipal;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.exception.InvalidRequest;
 import com.hodolog.api.request.PostCreate;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -110,7 +112,7 @@ public class PostController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') && #request.title = '하하하' ")
     @PostMapping("/posts")
-    public void post(@RequestBody @Valid PostCreate request) {
+    public void post(@AuthenticationPrincipal UserPrincipal userPrincipal, @RequestBody @Valid PostCreate request) {
 
         //기본적인 요청 인증 값 확인
         //1. GET Parameter -> ??
@@ -122,8 +124,8 @@ public class PostController {
 
 //        request.validate();
 //        postService.write(request);
-        request.validate();
-        postService.write(request);
+//        request.validate();
+        postService.write(userPrincipal.getUserId(), request);
     }
 
     // 조회 API

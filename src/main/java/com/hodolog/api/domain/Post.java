@@ -26,9 +26,10 @@ public class Post {
 
 
     @Builder
-    public Post(String title, String content) {
+    public Post(String title, String content, Users user) {
         this.title = title;
         this.content = content;
+        this.user = user;
     }
 
     public String getTitle(String title) {
@@ -47,5 +48,9 @@ public class Post {
     public void edit(PostEditor postEditor) {
         title = postEditor.getTitle();
         content = postEditor.getContent();
+    }
+
+    public Long getUserId() {
+        return this.user.getId();
     }
 }

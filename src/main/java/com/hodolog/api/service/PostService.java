@@ -1,9 +1,11 @@
 package com.hodolog.api.service;
 
 import com.hodolog.api.Repository.PostRepository;
+import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.domain.PostEditor;
 import com.hodolog.api.exception.PostNotFound;
+import com.hodolog.api.exception.UserNotFound;
 import com.hodolog.api.request.PostCreate;
 import com.hodolog.api.request.PostEdit;
 import com.hodolog.api.request.PostSearch;
@@ -27,14 +29,22 @@ import static com.hodolog.api.domain.QPost.post;
 public class PostService {
 
 
+    private final UserRepository userRepository;
     private final PostRepository postRepository;
 
 
 
-    public void write(PostCreate postCreate) {
+    public void write(Long userId, PostCreate postCreate) {
+        var user = userRepository.findById(userId)
+                .orElseThrow(UserNotFound::new);
+
+
+
+
         // repository.save(postCreate);
         //PostCreate -> Entity
         Post post = Post.builder()
+                .user(user)
                 .title(postCreate.getTitle())
                 .content(postCreate.getContent())
                 .build();
