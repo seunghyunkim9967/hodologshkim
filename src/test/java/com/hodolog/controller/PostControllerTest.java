@@ -3,6 +3,7 @@ package com.hodolog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.api.Repository.PostRepository;
+import com.hodolog.api.config.HodologMockUser;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.request.PostCreate;
 import com.hodolog.api.request.PostEdit;
@@ -125,7 +126,8 @@ public class PostControllerTest {
 //    }
 
     @Test
-    @WithMockUser(username = "dnfheh@naver.com", roles = {"ADMIN", "USER"})
+    @HodologMockUser//(name = "홍길동", email = "dnfheh@naver.com", password = "1234") // 기본값으로 넣어놨기 때문에 안넣어도 상관없다.
+//    @WithMockUser(username = "dnfheh@naver.com", roles = {"ADMIN", "USER"})
     @DisplayName("글 작성 요청시 DB에 값이 저장된다.")
     void test3() throws Exception {
         // given

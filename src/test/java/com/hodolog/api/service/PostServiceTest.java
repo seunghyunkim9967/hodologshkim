@@ -1,11 +1,14 @@
 package com.hodolog.api.service;
 
 import com.hodolog.api.Repository.PostRepository;
+import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.domain.Post;
+import com.hodolog.api.domain.Users;
 import com.hodolog.api.exception.PostNotFound;
 import com.hodolog.api.request.PostCreate;
 import com.hodolog.api.request.PostEdit;
 import com.hodolog.api.request.PostSearch;
+import com.hodolog.api.request.Signup;
 import com.hodolog.api.response.PostResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,9 +37,13 @@ class PostServiceTest {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @BeforeEach
     void clean() {
         postRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -44,13 +51,21 @@ class PostServiceTest {
     void test1() {
         //given
 
+        var user = Users.builder()
+                .password("1234")
+                .email("dnfheh@naver.com")
+                .name("승현맨")
+                .build();
+        //when
+        userRepository.save(user);
+
         PostCreate postCreate = PostCreate.builder()
                 .title("제목입니다.")
                 .content("내용입니다.")
                 .build();
 
         //when
-        postService.write(1L,postCreate);
+        postService.write(user.getId(),postCreate);
 
         //then
         assertEquals(1L, postRepository.count());
