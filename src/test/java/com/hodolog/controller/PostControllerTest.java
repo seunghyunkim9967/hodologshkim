@@ -3,10 +3,13 @@ package com.hodolog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.api.Repository.PostRepository;
+import com.hodolog.api.Repository.UserRepository;
 import com.hodolog.api.config.HodologMockUser;
 import com.hodolog.api.domain.Post;
+import com.hodolog.api.domain.Users;
 import com.hodolog.api.request.PostCreate;
 import com.hodolog.api.request.PostEdit;
+import com.hodolog.api.request.Signup;
 import com.hodolog.api.response.PostResponse;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -40,17 +43,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PostControllerTest {
 
     @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private PostRepository postRepository;
+
     @Autowired
-    private ObjectMapper objectMapper;
+    private UserRepository userRepository;
 
     //각각의 메서드 실행 전 repository 초기화
     @BeforeEach
     void clean() {
         postRepository.deleteAll();
+        userRepository.deleteAll();
     }
 //    @Test
 //    @DisplayName("/posts 요청시 Hello World를 출력한다.")
@@ -278,17 +286,21 @@ public class PostControllerTest {
 //    }
 
     @Test
-    @WithMockUser(username = "dnfheh@naver.com", roles = {"ADMIN", "USER"})
+    @HodologMockUser
     @DisplayName("게시글 삭제")
     void test8() throws Exception {
+
+        Users user = userRepository.findAll().get(0);
+
         Post post = Post.builder()
                 .title("호돌맨")
                 .content("오들오들맨")
+                .user(user)
                 .build();
         postRepository.save(post);
 
         //expected
-        mockMvc.perform(delete("/posts/{postId}", post.getId())
+        mockMvc.perform(delete("/posts/{postId}", 2)
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());

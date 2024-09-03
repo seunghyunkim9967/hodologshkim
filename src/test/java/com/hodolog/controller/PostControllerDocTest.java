@@ -3,8 +3,11 @@ package com.hodolog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hodolog.api.Repository.PostRepository;
+import com.hodolog.api.Repository.UserRepository;
+import com.hodolog.api.config.HodologMockUser;
 import com.hodolog.api.domain.Post;
 import com.hodolog.api.request.PostCreate;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,6 +57,9 @@ public class PostControllerDocTest {
     private PostRepository postRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
 //    @BeforeEach
@@ -62,6 +68,12 @@ public class PostControllerDocTest {
 //                .apply(documentationConfiguration(restDocumentation))
 //                .build();
 //    }
+
+    @AfterEach
+    void clean() {
+        postRepository.deleteAll();
+        userRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("글 단건 조회")
@@ -89,7 +101,7 @@ public class PostControllerDocTest {
     }
 
     @Test
-    @WithMockUser(username = "dnfheh@naver.com", roles = {"ADMIN", "USER"})
+    @HodologMockUser
     @DisplayName("글 등록")
     void test2() throws Exception {
         //given
