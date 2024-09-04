@@ -42,7 +42,6 @@ public class AuthController {
         Provider : 인증요청 처리 성공
         HGolder : 인증정보 저장
      */
-    //(괄호)
 
     /* 암호화 복호화 분리 */
     private final AuthService authService;

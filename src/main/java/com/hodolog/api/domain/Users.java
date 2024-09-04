@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Users {
+public class Users { // User : 예약어로 인해 Users로 Entity변경.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
